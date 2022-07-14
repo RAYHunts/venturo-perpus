@@ -1,0 +1,56 @@
+<form>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group row">
+                <label class="col-md-4 required">User</label>
+                <div class="col-md-8">
+                    <ng-select
+                        [(ngModel)]="formModel.user_id"
+                        name="user_id"
+                        [items]="users"
+                        bindLabel="nama"
+                        bindValue="id"
+                        placeholder="Pilih User"
+                        appendTo="body"
+                    ></ng-select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-4 required">Buku</label>
+                <div class="col-md-8">
+                    <ng-select
+                        [(ngModel)]="formModel.book_id"
+                        name="book_id"
+                        [items]="books"
+                        bindLabel="title"
+                        bindValue="id"
+                        placeholder="Pilih Buku"
+                        appendTo="body"
+                    ></ng-select>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group row">
+                <div class="col-md-12 text-right">
+                    <button
+                        type="button"
+                        class="btn btn-outline-secondary mr-2"
+                        (click)="back()"
+                    >
+                        Daftar Pinjaman
+                    </button>
+                    <button
+                        type="button"
+                        class="btn btn-primary"
+                        (click)="save()"
+                    >
+                        Simpan
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

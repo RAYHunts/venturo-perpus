@@ -1,0 +1,65 @@
+<div class="container-fluid" *ngIf="!isOpenForm">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between">
+                    <h1>
+                        Daftar Items
+                    </h1>
+                    <div role="group" class="btn-group btn-group-sm btn-group-justified blocks">
+                        <button  type="button" class="btn btn-sm btn-outline-secondary mr-2">
+                            <i class="fa fa-search font-size-14 align-middle mr-1"></i> Pencarian 
+                        </button>
+                        <button type="button" class="btn btn-sm btn-primary mr-2" (click)="createItem()">
+                            <i class="fa fa-plus font-size-14 align-middle mr-1"></i> Tambah Items 
+                        </button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <table class="table table-hover">
+                        <thead class="thead-light">
+                            <tr>
+                                <td>Nama</td>
+                                <td>Kategori</td>
+                                <td>Harga</td>
+                                <td width="90"></td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let val of listItems; index as i; trackBy:trackByIndex">
+                                <td class="vertical-middle">{{val.nama}}</td>
+                                <td class="vertical-middle">{{val.kategori}}</td>
+                                <td class="vertical-middle">{{val.harga | currency}}</td>
+                                <td class="vertical-middle text-right">
+                                    <a href="javascript: void(0);" class="align-middle mr-2" (click)="updateItem(val)" placement="left" container="body" ngbTooltip="Ubah">
+                                        <i class="fa fa-edit font-size-14"></i>
+                                    </a>
+                                    <a href="javascript: void(0);" class="align-middle" (click)="deleteItem(val.id)" placement="left" container="body" ngbTooltip="Hapus">
+                                        <i class="fa fa-trash font-size-14"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid" *ngIf="isOpenForm">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between">
+                    <h1>
+                        {{titleCard}}
+                    </h1>
+                </div>
+                <div class="card-body">
+                    <item-form [itemId]="modelId" (afterSave)="showForm(false); getItem()"></item-form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

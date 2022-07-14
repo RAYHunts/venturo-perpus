@@ -1,0 +1,139 @@
+/*
+Template Name: Skote - Responsive Bootstrap 4 Admin Dashboard
+Author: Themesbrand
+Version: 1.0.0
+Website: https://themesbrand.com/
+Contact: themesbrand@gmail.com
+File: Main Css File
+*/
+
+//Fonts
+@import "custom/fonts/fonts";
+
+//Core files
+@import "./node_modules/bootstrap/scss/functions";
+@import "./node_modules/bootstrap/scss/variables";
+@import "variables";
+@import "./node_modules/bootstrap/scss/mixins.scss";
+
+// Structure
+@import "custom/structure/general";
+@import "custom/structure/topbar";
+@import "custom/structure/page-head";
+@import "custom/structure/footer";
+@import "custom/structure/right-sidebar";
+@import "custom/structure/vertical";
+@import "custom/structure/horizontal-nav";
+@import "custom/structure/layouts";
+@import "custom/plugins/responsive-table";
+
+// Plugins
+@import "custom/plugins/custom-scrollbar";
+@import "custom/plugins/select2";
+
+// Pages
+@import "custom/pages/authentication";
+
+// Custom
+@import "style";
+
+.ng-select.ng-select-disabled > .ng-select-container {
+  background-color: #f7f8fb !important;
+}
+
+.ng-dropdown-panel{
+  z-index: 1050 !important;
+}
+
+table.dataTable.no-footer {
+  border-bottom: 1px solid #eff2f7 !important;
+}
+
+.dataTables_info {
+  margin-top: 20px;
+  padding-left: 10px;
+}
+
+.dataTables_paginate.paging_full_numbers {
+  margin-top: 25px;
+}
+
+table.dataTable thead .sorting:before,
+table.dataTable thead .sorting_asc:before,
+table.dataTable thead .sorting_desc:before,
+table.dataTable thead .sorting_asc_disabled:before,
+table.dataTable thead .sorting_desc_disabled:before {
+  content: "" !important;
+}
+
+table.dataTable thead .sorting:after,
+table.dataTable thead .sorting_asc:after,
+table.dataTable thead .sorting_desc:after,
+table.dataTable thead .sorting_asc_disabled:after,
+table.dataTable thead .sorting_desc_disabled:after {
+  content: "" !important;
+}
+
+table.dataTable {
+  width: 100% !important;
+}
+
+table.dataTable tbody tr.odd {
+  display: none !important;
+}
+
+.dataTables_wrapper .dataTables_length {
+  color: #333333;
+  display: none;
+}
+
+div.dataTables_wrapper div.dataTables_filter {
+  text-align: right;
+  display: none;
+}
+
+@media (max-width: 992px) {
+  div.dataTables_wrapper div.dataTables_length label {
+    display: none;
+  }
+
+  div.dataTables_wrapper div.dataTables_length,
+  div.dataTables_wrapper div.dataTables_filter,
+  div.dataTables_wrapper div.dataTables_info,
+  div.dataTables_wrapper div.dataTables_paginate {
+    text-align: right;
+  }
+
+  div.dataTables_wrapper div.dataTables_info {
+    display: none;
+  }
+}
+
+@media (max-width: 320px) {
+  .xs-hidden {
+    display: none !important;
+  }
+  /* smartphones, portrait iPhone, portrait 480x320 phones (Android) */
+}
+@media (max-width: 480px) {
+  .xs-hidden {
+    display: none !important;
+  }
+  /* smartphones, Android phones, landscape iPhone */
+}
+@media (max-width: 641px) {
+  .sm-hidden {
+    display: none !important;
+  }
+  /* portrait tablets, portrait iPad, landscape e-readers, landscape 800x480 or 854x480 phones */
+}
+@media (max-width: 961px) {
+  .sm-hidden {
+    display: none !important;
+  }
+  /* tablet, landscape iPad, lo-res laptops ands desktops */
+}
+
+.sidebar {
+  overflow-y: auto;
+}

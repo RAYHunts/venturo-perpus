@@ -1,0 +1,117 @@
+<form>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group row">
+                <label class="col-md-4 required">Nama</label>
+                <div class="col-md-8">
+                    <input [(ngModel)]="formModel.nama" type="text" name="nama" class="form-control"
+                        placeholder="Nama Item / Menu">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-4 required">Kategori</label>
+                <div class="col-md-8">
+                    <div class="btn-group" role="group" ngbRadioGroup name="kategori" [(ngModel)]="formModel.kategori">
+                        <label ngbButtonLabel class="btn-info">
+                            <input ngbButton type="radio" class="btn-check" value="food"> Food
+                        </label>
+                        <label ngbButtonLabel class="btn-info">
+                            <input ngbButton type="radio" class="btn-check" value="drink"> Drink
+                        </label>
+                        <label ngbButtonLabel class="btn-info">
+                            <input ngbButton type="radio" class="btn-check" value="snack"> Snack
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-4 required">Harga</label>
+                <div class="col-md-8">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Rp</span>
+                        </div>
+                        <input [(ngModel)]="formModel.harga" type="text" name="harga" class="form-control"
+                            placeholder="Harga Jual">
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-4 required">Deskripsi Singkat</label>
+                <div class="col-md-8">
+                    <textarea class="form-control" [(ngModel)]="formModel.deskripsi" name="deskripsi"
+                        placeholder="Tuliskan detail mengenai item / menu ini" rows="3"></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group row">
+                <label class="col-md-4 required">Status</label>
+                <div class="col-md-8">
+                    <div class="btn-group" role="group" ngbRadioGroup name="is_available"
+                        [(ngModel)]="formModel.is_available">
+                        <label ngbButtonLabel class="btn-info">
+                            <input ngbButton type="radio" class="btn-check" value="1"> Ada
+                        </label>
+                        <label ngbButtonLabel class="btn-info">
+                            <input ngbButton type="radio" class="btn-check" value="0"> Habis
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-hover">
+                <thead class="thead-light">
+                    <tr>
+                        <th width="90">
+                            <button type="button" class="btn btn-sm btn-success" (click)="addDetail()">
+                                <i class="fa fa-plus"></i>
+                            </button>
+                        </th>
+                        <th class="align-middle">Keterangan</th>
+                        <th class="align-middle" width="300">Tipe</th>
+                        <th class="align-middle" width="200">Harga</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let val of formModel.detail; index as i; trackBy:trackByIndex">
+                        <td class="align-middle">
+                            <button type="button" class="btn btn-sm btn-danger" (click)="removeDetail(formModel.detail, i)">
+                                <i class="fa fa-trash"></i>
+                            </button>
+                        </td>
+                        <td>
+                            <input [(ngModel)]="val.keterangan" type="text" name="nama_{{i}}" class="form-control"
+                                placeholder="Keterangan">
+                        </td>
+                        <td>
+                            <ng-select [(ngModel)]="val.tipe" [items]="listTipeDetail" bindValue="id" bindLabel="nama" placeholder="Tipe" name="tipe_{{i}}" appendTo="body"></ng-select>
+                        </td>
+                        <td>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">Rp</span>
+                                </div>
+                                <input [(ngModel)]="val.harga" type="text" name="harga_{{i}}" class="form-control"
+                                    placeholder="Harga">
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group row">
+                <div class="col-md-12 text-right">
+                    <button type="button" class="btn btn-outline-secondary mr-2" (click)="back()">Daftar Item</button>
+                    <button type="button" class="btn btn-primary" (click)="save()">Simpan</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

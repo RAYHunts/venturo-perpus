@@ -1,0 +1,305 @@
+<form>
+    <div class="form-group row">
+        <label class="col-md-4 required">Nama</label>
+        <div class="col-md-8">
+            <input
+                [(ngModel)]="formModel.nama"
+                type="text"
+                name="nama"
+                class="form-control"
+                placeholder="Nama Hak Akses"
+            />
+        </div>
+    </div>
+    <div class="form-group row mt-4">
+        <div class="col-md-12">
+            <ngb-tabset [justify]="'justified'">
+                <ngb-tab title="Pengaturan">
+                    <ng-template ngbTabContent>
+                        <table class="table table-bordered">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th>Nama Menu / Fitur</th>
+                                    <th class="text-center">View</th>
+                                    <th class="text-center">Create</th>
+                                    <th class="text-center">Update</th>
+                                    <th class="text-center">Delete</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Hak Akses</td>
+                                    <td class="text-center">
+                                        <div
+                                            class="form-check form-check-inline"
+                                        >
+                                            <input
+                                                [(ngModel)]="
+                                                    formModel.akses.roles.view
+                                                "
+                                                name="roles_view"
+                                                class="form-check-input"
+                                                type="checkbox"
+                                                value="true"
+                                            />
+                                        </div>
+                                    </td>
+                                    <td class="text-center">
+                                        <div
+                                            class="form-check form-check-inline"
+                                        >
+                                            <input
+                                                [(ngModel)]="
+                                                    formModel.akses.roles.create
+                                                "
+                                                name="roles_create"
+                                                class="form-check-input"
+                                                type="checkbox"
+                                                value="true"
+                                            />
+                                        </div>
+                                    </td>
+                                    <td class="text-center">
+                                        <div
+                                            class="form-check form-check-inline"
+                                        >
+                                            <input
+                                                [(ngModel)]="
+                                                    formModel.akses.roles.update
+                                                "
+                                                name="roles_update"
+                                                class="form-check-input"
+                                                type="checkbox"
+                                                value="true"
+                                            />
+                                        </div>
+                                    </td>
+                                    <td class="text-center">
+                                        <div
+                                            class="form-check form-check-inline"
+                                        >
+                                            <input
+                                                [(ngModel)]="
+                                                    formModel.akses.roles.delete
+                                                "
+                                                name="roles_delete"
+                                                class="form-check-input"
+                                                type="checkbox"
+                                                value="true"
+                                            />
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>User</td>
+                                    <td class="text-center">
+                                        <div
+                                            class="form-check form-check-inline"
+                                        >
+                                            <input
+                                                [(ngModel)]="
+                                                    formModel.akses.user.view
+                                                "
+                                                name="user_view"
+                                                class="form-check-input"
+                                                type="checkbox"
+                                                value="true"
+                                            />
+                                        </div>
+                                    </td>
+                                    <td class="text-center">
+                                        <div
+                                            class="form-check form-check-inline"
+                                        >
+                                            <input
+                                                [(ngModel)]="
+                                                    formModel.akses.user.create
+                                                "
+                                                name="user_create"
+                                                class="form-check-input"
+                                                type="checkbox"
+                                                value="true"
+                                            />
+                                        </div>
+                                    </td>
+                                    <td class="text-center">
+                                        <div
+                                            class="form-check form-check-inline"
+                                        >
+                                            <input
+                                                [(ngModel)]="
+                                                    formModel.akses.user.update
+                                                "
+                                                name="user_update"
+                                                class="form-check-input"
+                                                type="checkbox"
+                                                value="true"
+                                            />
+                                        </div>
+                                    </td>
+                                    <td class="text-center">
+                                        <div
+                                            class="form-check form-check-inline"
+                                        >
+                                            <input
+                                                [(ngModel)]="
+                                                    formModel.akses.user.delete
+                                                "
+                                                name="user_delete"
+                                                class="form-check-input"
+                                                type="checkbox"
+                                                value="true"
+                                            />
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Books</td>
+                                    <td class="text-center">
+                                        <div
+                                            class="form-check form-check-inline"
+                                        >
+                                            <input
+                                                [(ngModel)]="
+                                                    formModel.akses.books.view
+                                                "
+                                                name="books_view"
+                                                class="form-check-input"
+                                                type="checkbox"
+                                                value="true"
+                                            />
+                                        </div>
+                                    </td>
+                                    <td class="text-center">
+                                        <div
+                                            class="form-check form-check-inline"
+                                        >
+                                            <input
+                                                [(ngModel)]="
+                                                    formModel.akses.books.create
+                                                "
+                                                name="books_create"
+                                                class="form-check-input"
+                                                type="checkbox"
+                                                value="true"
+                                            />
+                                        </div>
+                                    </td>
+                                    <td class="text-center">
+                                        <div
+                                            class="form-check form-check-inline"
+                                        >
+                                            <input
+                                                [(ngModel)]="
+                                                    formModel.akses.books.update
+                                                "
+                                                name="books_update"
+                                                class="form-check-input"
+                                                type="checkbox"
+                                                value="true"
+                                            />
+                                        </div>
+                                    </td>
+                                    <td class="text-center">
+                                        <div
+                                            class="form-check form-check-inline"
+                                        >
+                                            <input
+                                                [(ngModel)]="
+                                                    formModel.akses.books.delete
+                                                "
+                                                name="books_delete"
+                                                class="form-check-input"
+                                                type="checkbox"
+                                                value="true"
+                                            />
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Borrow</td>
+                                    <td class="text-center">
+                                        <div
+                                            class="form-check form-check-inline"
+                                        >
+                                            <input
+                                                [(ngModel)]="
+                                                    formModel.akses.borrow.view
+                                                "
+                                                name="borrow_view"
+                                                class="form-check-input"
+                                                type="checkbox"
+                                                value="true"
+                                            />
+                                        </div>
+                                    </td>
+                                    <td class="text-center">
+                                        <div
+                                            class="form-check form-check-inline"
+                                        >
+                                            <input
+                                                [(ngModel)]="
+                                                    formModel.akses.borrow
+                                                        .create
+                                                "
+                                                name="borrow_create"
+                                                class="form-check-input"
+                                                type="checkbox"
+                                                value="true"
+                                            />
+                                        </div>
+                                    </td>
+                                    <td class="text-center">
+                                        <div
+                                            class="form-check form-check-inline"
+                                        >
+                                            <input
+                                                [(ngModel)]="
+                                                    formModel.akses.borrow
+                                                        .update
+                                                "
+                                                name="borrow_update"
+                                                class="form-check-input"
+                                                type="checkbox"
+                                                value="true"
+                                            />
+                                        </div>
+                                    </td>
+                                    <td class="text-center">
+                                        <div
+                                            class="form-check form-check-inline"
+                                        >
+                                            <input
+                                                [(ngModel)]="
+                                                    formModel.akses.borrow
+                                                        .delete
+                                                "
+                                                name="borrow_delete"
+                                                class="form-check-input"
+                                                type="checkbox"
+                                                value="true"
+                                            />
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </ng-template>
+                </ngb-tab>
+                <ngb-tab title="Transaksi">
+                    <ng-template ngbTabContent> </ng-template>
+                </ngb-tab>
+                <ngb-tab title="Laporan">
+                    <ng-template ngbTabContent> </ng-template>
+                </ngb-tab>
+            </ngb-tabset>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-md-12 text-right">
+            <button type="submit" class="btn btn-primary" (click)="save()">
+                Simpan
+            </button>
+        </div>
+    </div>
+</form>

@@ -1,0 +1,110 @@
+.account-pages {
+    overflow: hidden;
+    background-color: white;
+  }
+  
+  .col-md-6 {
+    padding: 0;
+  }
+  
+  .main-pages {
+    height: 100vh;
+  }
+  
+  .form-section {
+    color: black;
+  
+    .content {
+      width: 340px;
+    }
+    .intro {
+      width: 500px;
+    }
+  
+    h2 {
+      font-size: 30px;
+      color: black;
+    }
+    h1 {
+      font-size: 2rem;
+      display: block;
+      font-weight: bolder;
+      color: white;
+    }
+  
+    p {
+      font-size: 1rem;
+      color: black;
+    }
+  
+    .form-control {
+      padding: 1.5rem 0.75rem;
+    }
+  
+    label {
+      font-size: 14px;
+    }
+  
+    .img-logo {
+      width: 60px;
+    }
+  
+    .btn-login {
+      width: 70%;
+      outline: none;
+      border: none;
+      background: none;
+      background-color: rgb(80, 80, 199);
+      border-radius: 20px;
+      color: white;
+      padding: 10px;
+    }
+  
+    .form-check {
+      padding-left: 2.25rem;
+    }
+  
+    .continue {
+      span {
+        width: 35%;
+        border: 1px solid rgb(218, 218, 218);
+      }
+  
+      p {
+        margin-top: 15px;
+        font-size: 14px;
+        color: grey;
+        margin-right: 5px;
+        margin-left: 5px;
+      }
+    }
+  
+    .button {
+      background: none;
+      outline: none;
+      border: none;
+      background-color: white;
+      border: 2px solid rgb(233, 233, 233);
+      padding: 5px 30px;
+      color: gray;
+      border-radius: 12px;
+      font-size: 20px;
+  
+      &:hover {
+        background-color: rgb(233, 233, 233);
+      }
+    }
+  }
+  @media (max-width: 641px) {
+    .intro {
+      width: 340px !important;
+    }
+    /* portrait tablets, portrait iPad, landscape e-readers, landscape 800x480 or 854x480 phones */
+  }
+  @media (max-width: 961px) {
+    .intro {
+      width: 340px !important;
+    }
+    /* tablet, landscape iPad, lo-res laptops ands desktops */
+  }
+  

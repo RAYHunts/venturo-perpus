@@ -1,0 +1,126 @@
+<form>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group row">
+                <label class="col-md-4 required">Judul</label>
+                <div class="col-md-8">
+                    <input
+                        [(ngModel)]="formModel.title"
+                        type="text"
+                        name="title"
+                        class="form-control"
+                        placeholder="Judul Buku"
+                    />
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-4 required">Deskripsi Singkat</label>
+                <div class="col-md-8">
+                    <textarea
+                        class="form-control"
+                        [(ngModel)]="formModel.description"
+                        name="deskripsi"
+                        placeholder="Tuliskan detail mengenai buku ini"
+                        rows="3"
+                    ></textarea>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-4 required">Pengarang</label>
+                <div class="col-md-8">
+                    <div class="input-group">
+                        <input
+                            [(ngModel)]="formModel.author"
+                            type="text"
+                            name="author"
+                            class="form-control"
+                            placeholder="Pengarang Buku"
+                        />
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-4 required">Penerbit</label>
+                <div class="col-md-8">
+                    <div class="input-group">
+                        <input
+                            [(ngModel)]="formModel.publisher"
+                            type="text"
+                            name="publisher"
+                            class="form-control"
+                            placeholder="Penerbit Buku"
+                        />
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-4 required">Tahun Terbit</label>
+                <div class="col-md-8">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-addon1"
+                                >Tahun</span
+                            >
+                        </div>
+                        <input
+                            [(ngModel)]="formModel.publish_year"
+                            type="number"
+                            name="publish_year"
+                            class="form-control"
+                            placeholder="20XX"
+                        />
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-4 required">Jumlah Buku</label>
+                <div class="col-md-8">
+                    <div class="input-group">
+                        <input
+                            [(ngModel)]="formModel.qty"
+                            type="number"
+                            name="qty"
+                            class="form-control"
+                            placeholder="Jumlah"
+                        />
+                        <div class="input-group-append">
+                            <span class="input-group-text" id="basic-addon1"
+                                >Books</span
+                            >
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group row">
+                <img
+                    [src]="formModel.photo"
+                    class="rounded float-right img-fluid"
+                />
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group row">
+                <div class="col-md-12 text-right">
+                    <button
+                        type="button"
+                        class="btn btn-outline-secondary mr-2"
+                        (click)="back()"
+                    >
+                        Daftar Buku
+                    </button>
+                    <button
+                        type="button"
+                        class="btn btn-primary"
+                        (click)="save()"
+                    >
+                        Simpan
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

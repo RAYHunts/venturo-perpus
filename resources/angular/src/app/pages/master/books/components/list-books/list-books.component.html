@@ -1,0 +1,116 @@
+<div class="container-fluid" *ngIf="!isOpenForm">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between">
+                    <h1 class="card-title">Daftar Buku</h1>
+                    <div
+                        role="group"
+                        class="btn-group btn-group-sm btn-group-justified blocks"
+                    >
+                        <button
+                            type="button"
+                            class="btn btn-sm btn-primary mr-2"
+                            (click)="createBook()"
+                        >
+                            <i
+                                class="fa fa-plus font-size-14 align-middle mr-1"
+                            ></i>
+                            Tambah Buku
+                        </button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table
+                            datatable
+                            [dtOptions]="dtOptions"
+                            class="table table-hover"
+                            data-page-length="20"
+                        >
+                            <thead class="thead-light text-primary">
+                                <tr>
+                                    <th>No</th>
+                                    <th>Title</th>
+                                    <th>Author</th>
+                                    <th>Publisher</th>
+                                    <th>Year</th>
+                                    <th>Stocks</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let book of listBooks; index as i">
+                                    <td>
+                                        {{ i + 1 }}
+                                    </td>
+                                    <td>
+                                        {{ book.title }}
+                                    </td>
+                                    <td>
+                                        {{ book.author }}
+                                    </td>
+                                    <td>
+                                        {{ book.publisher }}
+                                    </td>
+                                    <td>
+                                        {{ book.publish_year }}
+                                    </td>
+                                    <td>
+                                        {{ book.qty }}
+                                    </td>
+                                    <td>
+                                        <a
+                                            href="javascript: void(0);"
+                                            class="align-middle mr-2 btn btn-primary"
+                                            placement="left"
+                                            container="body"
+                                            ngbTooltip="Edit"
+                                            (click)="updateBook(book)"
+                                        >
+                                            <i
+                                                class="fa fa-edit font-size-14"
+                                            ></i>
+                                        </a>
+                                        <a
+                                            href="javascript: void(0);"
+                                            class="align-middle btn btn-danger"
+                                            placement="left"
+                                            container="body"
+                                            ngbTooltip="Hapus"
+                                            (click)="deleteBook(book.id)"
+                                        >
+                                            <i
+                                                class="fa fa-trash font-size-14"
+                                            ></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid" *ngIf="isOpenForm">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between">
+                    <h1>
+                        {{ titleCard }}
+                    </h1>
+                </div>
+                <div class="card-body">
+                    <book-form
+                        [bookId]="modelId"
+                        (afterSave)="showForm(false); getBook()"
+                    ></book-form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

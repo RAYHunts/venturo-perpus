@@ -1,0 +1,155 @@
+<div class="container-fluid" *ngIf="!isOpenForm">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between">
+                    <h1 class="card-title">Daftar Pinjaman</h1>
+                    <div
+                        role="group"
+                        class="btn-group btn-group-sm btn-group-justified blocks"
+                    >
+                        <button
+                            type="button"
+                            class="btn btn-sm btn-primary mr-2"
+                            (click)="createBorrow()"
+                        >
+                            <i
+                                class="fa fa-plus font-size-14 align-middle mr-1"
+                            ></i>
+                            Tambah Pinjaman
+                        </button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table
+                            datatable
+                            [dtOptions]="dtOptions"
+                            class="table table-hover"
+                            data-page-length="20"
+                        >
+                            <thead class="text-primary">
+                                <tr>
+                                    <th>No</th>
+                                    <th>Nama</th>
+                                    <th>Judul Buku</th>
+                                    <th>Tanggal Peminjamam</th>
+                                    <th>Tanggal Dikembalikan</th>
+                                    <th>Wajib Dikembalikan Pada</th>
+                                    <th>Status</th>
+                                    <th>Denda 5K / Hari</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr
+                                    *ngFor="let list of listBorrows; index as i"
+                                >
+                                    <td>
+                                        {{ i + 1 }}
+                                    </td>
+                                    <td>
+                                        {{ list.user.nama }}
+                                    </td>
+                                    <td>
+                                        {{ list.book.title }}
+                                    </td>
+                                    <td>
+                                        {{ list.borrow_date }}
+                                    </td>
+                                    <td>
+                                        {{ list.return_date }}
+                                    </td>
+                                    <td>
+                                        {{ list.must_return_date }}
+                                    </td>
+                                    <td>
+                                        <span
+                                            [ngClass]="{
+                                                'btn-success':
+                                                    list.status == 'ontime',
+                                                'btn-danger':
+                                                    list.status ==
+                                                        'late return' ||
+                                                    list.status ==
+                                                        'late not return',
+                                                'btn-warning':
+                                                    list.status == 'borrowed'
+                                            }"
+                                            class="btn"
+                                        >
+                                            {{
+                                                list.status == "ontime"
+                                                    ? "Dikembalikan"
+                                                    : list.status ==
+                                                      "late return"
+                                                    ? "Terlambat Dikembalikan"
+                                                    : list.status ==
+                                                      "late not return"
+                                                    ? "Terlambat Belum Dikembalikan"
+                                                    : "Sedang Dipinjam"
+                                            }}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        {{
+                                            list.denda == 0
+                                                ? "-"
+                                                : (list.denda
+                                                  | currency: "Rp. ")
+                                        }}
+                                    </td>
+                                    <td>
+                                        <a
+                                            href="javascript: void(0);"
+                                            class="align-middle mr-2 btn btn-primary"
+                                            placement="left"
+                                            container="body"
+                                            ngbTooltip="Edit"
+                                            (click)="updateBorrow(list)"
+                                        >
+                                            <i
+                                                class="fa fa-edit font-size-14"
+                                            ></i>
+                                        </a>
+                                        <a
+                                            href="javascript: void(0);"
+                                            class="align-middle mr-2 btn btn-primary"
+                                            placement="left"
+                                            container="body"
+                                            ngbTooltip="Kembalikan"
+                                            (click)="return(list)"
+                                        >
+                                            <i class="fas fa-exchange-alt"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid" *ngIf="isOpenForm">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between">
+                    <h1>
+                        {{ titleCard }}
+                    </h1>
+                </div>
+                <div class="card-body">
+                    <form-borrow
+                        [borrowId]="modelId"
+                        (afterSave)="showForm(false); getBorrow()"
+                    >
+                    </form-borrow>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

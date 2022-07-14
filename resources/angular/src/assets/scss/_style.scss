@@ -1,0 +1,48 @@
+// BODY
+body[data-layout=horizontal] .page-content{
+    padding: 15px;
+    padding-top: 25px;
+}
+
+.required:after {
+    content: "*";
+    color: red;
+}
+// END BODY
+
+// DATATABLE
+table.dataTable thead th, table.dataTable thead td {
+    padding: 10px 18px;
+    border-bottom: 1px solid #f4f4f7 !important;
+}
+.dataTables_wrapper .dataTables_paginate .paginate_button{
+    padding: 0em !important;
+    padding-left: 0em !important;
+}
+// END DATATABLE
+
+// NAVBAR
+.navbar-nav {
+    border-left: 1px solid #e7e7e7;
+    padding-left: 10px;
+    margin-left: 10px !important;
+}
+
+.navbar-nav .nav-link {
+    font-size: .8rem !important;
+}
+// END NAVBAR
+
+// TABEL
+.table .thead-light {
+    background-color: #f8f9fa;
+    font-weight: 600;
+}
+// END TABEL
+
+// CARD
+.card-header h1 {
+    font-size: 18px;
+    color: #495057;
+}
+// END CARD

@@ -1,0 +1,62 @@
+<form>
+    <div class="form-group row">
+        <label class="col-md-4 required">Nama</label>
+        <div class="col-md-8">
+            <input
+                [(ngModel)]="formModel.nama"
+                type="text"
+                name="nama"
+                class="form-control"
+                placeholder="Nama Pengguna"
+            />
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-md-4 required">Email</label>
+        <div class="col-md-8">
+            <input
+                [(ngModel)]="formModel.email"
+                type="email"
+                name="email"
+                class="form-control"
+                placeholder="Email Pengguna"
+            />
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-md-4">Password</label>
+        <div class="col-md-8">
+            <input
+                [(ngModel)]="formModel.password"
+                type="password"
+                name="password"
+                class="form-control"
+                placeholder="Password"
+            />
+            <small class="form-text text-muted" *ngIf="mode == 'edit'"
+                >Kosongi password jika tidak diubah</small
+            >
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-md-4 required">Hak Akses</label>
+        <div class="col-md-8">
+            <ng-select
+                [(ngModel)]="formModel.akses"
+                [items]="listAkses"
+                bindLabel="nama"
+                placeholder="Pilih Hak Akses"
+                name="akses"
+                appendTo="body"
+            ></ng-select>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-md-4"></label>
+        <div class="col-md-8">
+            <button type="submit" class="btn btn-primary" (click)="save()">
+                Simpan
+            </button>
+        </div>
+    </div>
+</form>
