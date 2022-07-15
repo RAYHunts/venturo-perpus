@@ -23,6 +23,7 @@ class BooksResource extends JsonResource
             'publisher' => $this->publisher,
             'publish_year' => $this->publish_year,
             'qty' => $this->qty,
+            'borrows' => $this->borrow,
         ];
     }
 }

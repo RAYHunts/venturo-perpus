@@ -12,6 +12,7 @@
                             type="button"
                             class="btn btn-sm btn-primary mr-2"
                             (click)="createBook()"
+                            *ngIf="userLogin.akses == 'Super Admin'"
                         >
                             <i
                                 class="fa fa-plus font-size-14 align-middle mr-1"
@@ -36,6 +37,7 @@
                                     <th>Publisher</th>
                                     <th>Year</th>
                                     <th>Stocks</th>
+                                    <th>Jumlah Peminjam</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
@@ -60,6 +62,9 @@
                                         {{ book.qty }}
                                     </td>
                                     <td>
+                                        {{ book.borrows.length }}
+                                    </td>
+                                    <td>
                                         <a
                                             href="javascript: void(0);"
                                             class="align-middle mr-2 btn btn-primary"
@@ -67,10 +72,28 @@
                                             container="body"
                                             ngbTooltip="Edit"
                                             (click)="updateBook(book)"
+                                            *ngIf="
+                                                userLogin.akses == 'Super Admin'
+                                            "
                                         >
                                             <i
                                                 class="fa fa-edit font-size-14"
                                             ></i>
+                                        </a>
+                                        <a
+                                            href="javascript: void(0);"
+                                            class="align-middle mr-2 btn btn-primary"
+                                            placement="left"
+                                            container="body"
+                                            ngbTooltip="Pinjam Buku"
+                                            (click)="
+                                                borrowBook(
+                                                    userLogin.id,
+                                                    book.id
+                                                )
+                                            "
+                                        >
+                                            <i class="fas fa-book"></i>
                                         </a>
                                         <a
                                             href="javascript: void(0);"
@@ -79,6 +102,9 @@
                                             container="body"
                                             ngbTooltip="Hapus"
                                             (click)="deleteBook(book.id)"
+                                            *ngIf="
+                                                userLogin.akses == 'Super Admin'
+                                            "
                                         >
                                             <i
                                                 class="fa fa-trash font-size-14"

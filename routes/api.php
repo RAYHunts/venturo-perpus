@@ -24,7 +24,7 @@ Route::prefix('v1')->group(function () {
     /**
      * CRUD user
      */
-    Route::get('/users', [UserController::class, 'index'])->middleware(['web', 'auth.api:user_view']);
+    Route::get('/users', [UserController::class, 'index'])->middleware(['web']);
     Route::get('/users/{id}', [UserController::class, 'show'])->middleware(['web', 'auth.api:user_view']);
     Route::post('/users', [UserController::class, 'store'])->middleware(['web', 'auth.api:user_create']);
     Route::put('/users', [UserController::class, 'update'])->middleware(['web', 'auth.api:user_update']);
@@ -42,38 +42,41 @@ Route::prefix('v1')->group(function () {
     /**
      * CRUD customer
      */
-    Route::get('/customers', [CustomerController::class, 'index'])->middleware(['web', 'auth.api:customer_view']);
-    Route::get('/customers/{id}', [CustomerController::class, 'show'])->middleware(['web', 'auth.api:customer_view']);
-    Route::post('/customers', [CustomerController::class, 'store'])->middleware(['web', 'auth.api:customer_create']);
-    Route::put('/customers', [CustomerController::class, 'update'])->middleware(['web', 'auth.api:customer_update']);
-    Route::delete('/customers/{id}', [CustomerController::class, 'destroy'])->middleware(['web', 'auth.api:customer_delete']);
+    // Route::get('/customers', [CustomerController::class, 'index'])->middleware(['web', 'auth.api:customer_view']);
+    // Route::get('/customers/{id}', [CustomerController::class, 'show'])->middleware(['web', 'auth.api:customer_view']);
+    // Route::post('/customers', [CustomerController::class, 'store'])->middleware(['web', 'auth.api:customer_create']);
+    // Route::put('/customers', [CustomerController::class, 'update'])->middleware(['web', 'auth.api:customer_update']);
+    // Route::delete('/customers/{id}', [CustomerController::class, 'destroy'])->middleware(['web', 'auth.api:customer_delete']);
 
     /**
      * CRUD items / produk
      */
-    Route::get('/items', [ItemController::class, 'index'])->middleware(['web', 'auth.api:item_view']);
-    Route::get('/items/{id}', [ItemController::class, 'show'])->middleware(['web', 'auth.api:item_view']);
-    Route::post('/items', [ItemController::class, 'store'])->middleware(['web', 'auth.api:item_create']);
-    Route::put('/items', [ItemController::class, 'update'])->middleware(['web', 'auth.api:item_update']);
-    Route::delete('/items/{id}', [ItemController::class, 'destroy'])->middleware(['web', 'auth.api:item_delete']);
+    // Route::get('/items', [ItemController::class, 'index'])->middleware(['web', 'auth.api:item_view']);
+    // Route::get('/items/{id}', [ItemController::class, 'show'])->middleware(['web', 'auth.api:item_view']);
+    // Route::post('/items', [ItemController::class, 'store'])->middleware(['web', 'auth.api:item_create']);
+    // Route::put('/items', [ItemController::class, 'update'])->middleware(['web', 'auth.api:item_update']);
+    // Route::delete('/items/{id}', [ItemController::class, 'destroy'])->middleware(['web', 'auth.api:item_delete']);
 
     /**
      * CRUD borrow
      */
     Route::get('/borrows', [BorrowController::class, 'index'])->middleware(['web']);
-    Route::get('/borrows/{id}', [BorrowController::class, 'show'])->middleware(['web']);
-    Route::post('/borrows', [BorrowController::class, 'store'])->middleware(['web']);
-    Route::put('/borrows', [BorrowController::class, 'update'])->middleware(['web']);
-    Route::delete('/borrows/{id}', [BorrowController::class, 'destroy'])->middleware(['web']);
+    Route::get('/borrows/user', [BorrowController::class, 'getByUser'])->middleware(['web']);
+    Route::get('/borrows/{id}', [BorrowController::class, 'show'])->middleware(['web', 'auth.api:borrow_view']);
+    Route::post('/borrows', [BorrowController::class, 'store'])->middleware(['web', 'auth.api:borrow_create']);
+    Route::put('/borrows', [BorrowController::class, 'update'])->middleware(['web', 'auth.api:borrow_update']);
+    // Route::delete('/borrows/{id}', [BorrowController::class, 'destroy'])->middleware(['web', 'auth.api:borrow_delete']);
 
     /**
      * CRUD books
      */
     Route::get('/books', [BooksController::class, 'index'])->middleware(['web']);
-    Route::get('/books/{id}', [BooksController::class, 'show'])->middleware(['web']);
-    Route::post('/books', [BooksController::class, 'store'])->middleware(['web']);
-    Route::put('/books', [BooksController::class, 'update'])->middleware(['web']);
-    Route::delete('/books/{id}', [BooksController::class, 'destroy'])->middleware(['web']);
+    Route::get('/books/{id}', [BooksController::class, 'show'])->middleware(['web', 'auth.api:books_create']);
+    Route::post('/books', [BooksController::class, 'store'])->middleware(['web', 'auth.api:books_create']);
+    Route::put('/books', [BooksController::class, 'update'])->middleware(['web', 'auth.api:books_update']);
+    Route::delete('/books/{id}', [BooksController::class, 'destroy'])->middleware(['web', 'auth.api:books_delete']);
+    Route::put('/books/borrow', [BooksController::class, 'borrowing'])->middleware(['web', 'auth.api:books_view']);
+
 
 
     /**

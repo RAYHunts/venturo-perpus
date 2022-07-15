@@ -38,7 +38,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
         this.authService.login(this.email, this.password).subscribe(
             (res: any) => {
                 this.authService.saveToken(res.data.access_token);
-                this.router.navigate(["/home"]);
+                window.location.href = "/home";
             },
             (err: any) => {
                 this.landaService.alertError("Mohon Maaf", err.error.errors);

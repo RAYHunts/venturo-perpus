@@ -11,6 +11,10 @@ export class BorrowService {
         return this.landaService.DataGet("/v1/borrows", arrParameter);
     }
 
+    getBorrowsByUser(arrParameter) {
+        return this.landaService.DataGet("/v1/borrows/user", arrParameter);
+    }
+
     getBorrowById(id) {
         return this.landaService.DataGet("/v1/borrows/" + id);
     }
@@ -24,6 +28,11 @@ export class BorrowService {
     }
 
     returnBorrow(payload) {
+        payload = {
+            book_id: payload.book.id,
+            user_id: payload.user.id,
+            id: payload.id,
+        };
         return this.landaService.DataPut("/v1/borrows", payload);
     }
 
@@ -36,6 +45,9 @@ export class BorrowService {
     }
 
     getBooks() {
-        return this.landaService.DataGet("/v1/books", { limit: 0 });
+        return this.landaService.DataGet("/v1/books", {
+            limit: 0,
+            sort: "title",
+        });
     }
 }

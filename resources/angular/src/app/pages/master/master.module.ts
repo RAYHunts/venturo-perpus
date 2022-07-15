@@ -23,6 +23,8 @@ import { ListBooksComponent } from "./books/components/list-books/list-books.com
 import { FormBookComponent } from "./books/components/form-book/form-book.component";
 import { ListBorrowComponent } from "./borrow/components/list-borrow/list-borrow.component";
 import { FormBorrowComponent } from "./borrow/components/form-borrow/form-borrow.component";
+import { LaporanBukuComponent } from './laporan/components/laporan-buku/laporan-buku.component';
+import { LaporanUserComponent } from './laporan/components/laporan-user/laporan-user.component';
 
 @NgModule({
     declarations: [
@@ -38,6 +40,8 @@ import { FormBorrowComponent } from "./borrow/components/form-borrow/form-borrow
         FormBookComponent,
         ListBorrowComponent,
         FormBorrowComponent,
+        LaporanBukuComponent,
+        LaporanUserComponent,
     ],
     imports: [
         CommonModule,

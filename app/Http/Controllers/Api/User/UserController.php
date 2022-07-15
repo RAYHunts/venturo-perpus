@@ -31,7 +31,7 @@ class UserController extends Controller
             'nama' => $request->nama ?? '',
             'email' => $request->email ?? '',
         ];
-        $users = $this->user->getAll($filter, 5, $request->sort ?? '');
+        $users = $this->user->getAll($filter, $request->limit ?? 0, $request->sort ?? '');
 
         return response()->success(new UserCollection($users));
     }
@@ -53,7 +53,7 @@ class UserController extends Controller
 
         $dataInput = $request->only(['email', 'nama', 'password', 'foto']);
         $dataUser = $this->user->create($dataInput);
-        
+
         if (!$dataUser['status']) {
             return response()->failed($dataUser['error']);
         }

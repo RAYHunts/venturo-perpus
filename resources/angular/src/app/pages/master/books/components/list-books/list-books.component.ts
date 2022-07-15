@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { DataTableDirective } from "angular-datatables";
 import { LandaService } from "src/app/core/services/landa.service";
+import { AuthService } from "src/app/pages/auth/services/auth.service";
 import Swal from "sweetalert2";
 import { BookService } from "../../services/book.service";
 
@@ -17,14 +18,26 @@ export class ListBooksComponent implements OnInit {
     titleCard: string;
     modelId: number;
     isOpenForm: boolean = false;
+    userLogin;
 
     constructor(
         private bookService: BookService,
-        private landaService: LandaService
+        private landaService: LandaService,
+        private authService: AuthService
     ) {}
 
     ngOnInit(): void {
         this.getBook();
+        this.authService.getProfile().subscribe((user: any) => {
+            this.userLogin = user;
+            console.log(this.userLogin);
+        });
+    }
+
+    reloadDataTable(): void {
+        this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+            dtInstance.draw();
+        });
     }
 
     getBook() {
@@ -77,6 +90,13 @@ export class ListBooksComponent implements OnInit {
         this.showForm(true);
     }
 
+    borrowBook(user_id, book_id) {
+        this.bookService.borrowBook(user_id, book_id).subscribe((res: any) => {
+            this.landaService.alertSuccess("Berhasil", res.message);
+            this.reloadDataTable();
+        });
+    }
+
     deleteBook(bookId) {
         Swal.fire({
             title: "Apakah kamu yakin ?",
@@ -91,7 +111,7 @@ export class ListBooksComponent implements OnInit {
                 this.bookService.deleteBook(bookId).subscribe(
                     (res: any) => {
                         this.landaService.alertSuccess("Berhasil", res.message);
-                        this.getBook();
+                        this.reloadDataTable();
                     },
                     (err: any) => {
                         console.log(err);

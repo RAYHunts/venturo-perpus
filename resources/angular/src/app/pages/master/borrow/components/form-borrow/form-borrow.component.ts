@@ -61,7 +61,6 @@ export class FormBorrowComponent implements OnInit {
                 book_id: res.data.book.id,
                 user_id: res.data.user.id,
             };
-            console.log(this.formModel);
         });
     }
 

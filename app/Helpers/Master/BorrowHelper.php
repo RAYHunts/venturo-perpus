@@ -19,6 +19,11 @@ class BorrowHelper implements CrudInterface
         return $this->borrowModel->getAll($filter, $itemPerPage, $sort);
     }
 
+    public function getByUser(array $filter, int $itemPerPage, string $sort): object
+    {
+        return $this->borrowModel->getByUser($filter, $itemPerPage, $sort);
+    }
+
     public function getById(int $id): object
     {
         return $this->borrowModel->getById($id);

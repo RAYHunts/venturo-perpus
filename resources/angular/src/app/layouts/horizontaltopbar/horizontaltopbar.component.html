@@ -1,6 +1,11 @@
 <nav class="navbar navbar-expand-lg bg-light shadow" id="page-topbar">
     <div class="container-fluid">
-        <a class="navbar-brand xs-hidden sm-hidden" style="padding: 0" href="#">
+        <a
+            class="navbar-brand xs-hidden sm-hidden"
+            style="padding: 0"
+            href="javascript: void(0);"
+            [routerLink]="['/home']"
+        >
             <img
                 src="https://venturo.id/public/assets/img/logo%20venturo%20(1).png"
                 alt=""
@@ -42,6 +47,7 @@
                             href="javascript: void(0);"
                             class="col dropdown-item side-nav-link-ref"
                             [routerLink]="['/master/users']"
+                            *ngIf="userLogin.akses == 'Super Admin'"
                             >User</a
                         >
                         <!-- <a
@@ -60,7 +66,7 @@
                             href="javascript: void(0);"
                             class="col dropdown-item side-nav-link-ref"
                             [routerLink]="['/master/books']"
-                            >Book</a
+                            >Daftar Buku</a
                         >
                         <a
                             href="javascript: void(0);"
@@ -70,7 +76,11 @@
                         >
                     </div>
                 </li>
-                <li class="nav-item dropdown" ngbDropdown>
+                <li
+                    class="nav-item dropdown"
+                    ngbDropdown
+                    *ngIf="userLogin.akses == 'Super Admin'"
+                >
                     <a
                         class="nav-link dropdown-toggle arrow-none text-dark"
                         (click)="onMenuClick($event)"
@@ -87,8 +97,15 @@
                         aria-labelledby="topnav-dashboard"
                         ngbDropdownMenu
                     >
-                        <a class="col dropdown-item side-nav-link-ref"
-                            >Data Pinjaman</a
+                        <a
+                            class="col dropdown-item side-nav-link-ref"
+                            [routerLink]="['/master/books-report']"
+                            >Rekap Pinjaman Buku</a
+                        >
+                        <a
+                            class="col dropdown-item side-nav-link-ref"
+                            [routerLink]="['/master/users-report']"
+                            >Rekap Pinjaman User</a
                         >
                     </div>
                 </li>
@@ -132,16 +149,6 @@
                             class="bx bx-user font-size-16 align-middle mr-1"
                         ></i>
                         Profile
-                    </a>
-                    <a
-                        class="dropdown-item"
-                        href="javascript: void(0);"
-                        [routerLink]="['/roles']"
-                    >
-                        <i
-                            class="bx bx-wrench font-size-16 align-middle mr-1"
-                        ></i>
-                        Roles
                     </a>
                     <a
                         class="dropdown-item text-danger"

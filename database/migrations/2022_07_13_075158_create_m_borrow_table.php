@@ -19,6 +19,10 @@ class CreateMBorrowTable extends Migration
             $table->integer('user_id')->nullable();
             $table->date('borrow_date')->nullable();
             $table->date('return_date')->nullable();
+            $table->softDeletes();
+            $table->integer('created_by')->default(0);
+            $table->integer('updated_by')->default(0);
+            $table->integer('deleted_by')->default(0);
             $table->timestamps();
         });
     }

@@ -56,6 +56,22 @@ class BooksHelper implements CrudInterface
         }
     }
 
+    public function borrowing(int $user_id, int $id): array
+    {
+        try {
+            $this->booksModel->borrowing($user_id, $id);
+            return [
+                'status' => true,
+                'data' => $this->getById($id)
+            ];
+        } catch (\Throwable $th) {
+            return [
+                'status' => false,
+                'error' => $th->getMessage(),
+            ];
+        }
+    }
+
     public function delete(int $id): bool
     {
         try {

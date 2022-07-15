@@ -2,13 +2,19 @@
 
 namespace App\Models\Master;
 
+use App\Http\Traits\RecordSignature;
+use App\Models\User\UserModel;
 use App\Repository\ModelInterface;
+use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Concerns\HasRelationships;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\DB;
 
 class BooksModel extends Model implements ModelInterface
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes, HasRelationships;
     protected $table = 'm_books';
     protected $guarded = [
         'id',
@@ -16,7 +22,12 @@ class BooksModel extends Model implements ModelInterface
 
     public function getAll(array $filter, int $itemPerPage, string $sort): object
     {
-        $books = $this->query();
+        $books = $this->query()->with(['borrow' => function ($query) {
+            $query->select(['id', 'user_id', 'book_id', 'borrow_date', 'return_date'])->whereNull('return_date');
+        }, 'borrow.user' => function ($query) {
+            $query->select('id', 'nama');
+        }]);
+        $books->where('qty', '>', 0);
         if (!empty($filter['title'])) {
             $books->where('title', 'LIKE', '%' . $filter['title'] . '%');
         }
@@ -28,7 +39,7 @@ class BooksModel extends Model implements ModelInterface
         }
         $sort = $sort ?: 'id DESC';
         $books->orderByRaw($sort);
-        $itemPerPage = $itemPerPage > 0 ? $itemPerPage : false;
+        $itemPerPage = $itemPerPage > 0 ? $itemPerPage : $this->query()->count();
         return $books->paginate($itemPerPage)->appends('sort', $sort);
     }
 
@@ -55,5 +66,18 @@ class BooksModel extends Model implements ModelInterface
     public function borrow()
     {
         return $this->hasMany(BorrowModel::class, 'book_id', 'id');
+    }
+
+    public function borrowing($user_id, $id)
+    {
+        BorrowModel::create([
+            'user_id' => $user_id,
+            'book_id' => $id,
+            'borrow_date' => Carbon::now()->format('Y-m-d'),
+        ]);
+        $book = $this->find($id);
+        $book->decrement('qty');
+        $book->save();
+        return $book;
     }
 }

@@ -25,7 +25,7 @@ class BooksController extends Controller
             'publisher' => $request->publisher ?? '',
         ];
 
-        $listBooks = $this->book->getAll($filter, $request->limit ?? 10, $request->sort ?? '');
+        $listBooks = $this->book->getAll($filter, $request->limit ?? 0, $request->sort ?? '');
         return response()->success(new BooksCollection($listBooks));
     }
 
@@ -58,12 +58,21 @@ class BooksController extends Controller
         return response()->success($dataBook['data'], 'Data buku berhasil disimpan');
     }
 
+    public function borrowing(Request $request)
+    {
+        $dataBook = $this->book->borrowing($request->user_id, $request->book_id);
+        if (!$dataBook['status']) {
+            return response()->failed($dataBook['error']);
+        }
+        return response()->success($dataBook['data'], 'Buku berhasil dipinjam');
+    }
+
     public function destroy($id)
     {
         $dataBook = $this->book->delete($id);
         if (!$dataBook) {
-            return response()->failed($dataBook['error']);
+            return response()->failed(['Mohon maaf data customer tidak ditemukan']);
         }
-        return response()->success($dataBook['data']);
+        return response()->success($dataBook);
     }
 }

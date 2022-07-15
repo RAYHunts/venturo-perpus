@@ -26,4 +26,11 @@ export class BookService {
     deleteBook(bookId) {
         return this.landaService.DataDelete("/v1/books/" + bookId);
     }
+
+    borrowBook($userId, $bookId) {
+        return this.landaService.DataPut("/v1/books/borrow", {
+            user_id: $userId,
+            book_id: $bookId,
+        });
+    }
 }

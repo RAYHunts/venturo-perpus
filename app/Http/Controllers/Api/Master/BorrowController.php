@@ -22,11 +22,25 @@ class BorrowController extends Controller
         $filter = [
             'book_id' => $request->book_id ?? '',
             'status' => $request->status ?? '',
+            'user_id' => $request->user_id ?? '',
             'borrow_date' => $request->borrow_date ?? '',
             'return_date' => $request->return_date ?? '',
         ];
-        $listBorrow = $this->borrow->getAll($filter, $request->limit ?? 10, $request->sort ?? '');
+        $listBorrow = $this->borrow->getAll($filter, $request->limit ?? 0, $request->sort ?? '');
         return response()->success(new BorrowCollection($listBorrow));
+    }
+
+    public function getByUser(Request $request)
+    {
+        $filter = [
+            'book_id' => $request->book_id ?? '',
+            'status' => $request->status ?? '',
+            'user_id' => $request->user_id ?? '',
+            'borrow_date' => $request->borrow_date ?? '',
+            'return_date' => $request->return_date ?? '',
+        ];
+        $dataBorrow = $this->borrow->getByUser($filter, $request->limit ?? 0, $request->sort ?? '');
+        return response()->success(new BorrowCollection($dataBorrow));
     }
 
     public function store(Request $request)
@@ -63,8 +77,8 @@ class BorrowController extends Controller
     {
         $dataBorrow = $this->borrow->delete($id);
         if (!$dataBorrow) {
-            return response()->failed($dataBorrow['error']);
+            return response()->failed(['Data peminjaman tidak ditemukan']);
         }
-        return response()->success($dataBorrow['data']);
+        return response()->success($dataBorrow);
     }
 }

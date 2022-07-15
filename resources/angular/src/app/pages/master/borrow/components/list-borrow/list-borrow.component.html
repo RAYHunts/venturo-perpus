@@ -12,6 +12,7 @@
                             type="button"
                             class="btn btn-sm btn-primary mr-2"
                             (click)="createBorrow()"
+                            *ngIf="userLogin.akses == 'Super Admin'"
                         >
                             <i
                                 class="fa fa-plus font-size-14 align-middle mr-1"
@@ -100,18 +101,21 @@
                                         }}
                                     </td>
                                     <td>
-                                        <a
+                                        <!-- <a
                                             href="javascript: void(0);"
                                             class="align-middle mr-2 btn btn-primary"
                                             placement="left"
                                             container="body"
                                             ngbTooltip="Edit"
                                             (click)="updateBorrow(list)"
+                                            *ngIf="
+                                                userLogin.akses == 'Super Admin'
+                                            "
                                         >
                                             <i
                                                 class="fa fa-edit font-size-14"
                                             ></i>
-                                        </a>
+                                        </a> -->
                                         <a
                                             href="javascript: void(0);"
                                             class="align-middle mr-2 btn btn-primary"
@@ -119,8 +123,15 @@
                                             container="body"
                                             ngbTooltip="Kembalikan"
                                             (click)="return(list)"
+                                            *ngIf="
+                                                list.status ==
+                                                    'late not return' ||
+                                                list.status == 'borrowed'
+                                            "
                                         >
-                                            <i class="fas fa-exchange-alt"></i>
+                                            <i
+                                                class="fas fa-caret-square-left"
+                                            ></i>
                                         </a>
                                     </td>
                                 </tr>

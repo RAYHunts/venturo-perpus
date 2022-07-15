@@ -3,6 +3,7 @@
 namespace App\Models\User;
 
 use App\Http\Traits\RecordSignature;
+use App\Models\Master\BorrowModel;
 use App\Repository\ModelInterface;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Tymon\JWTAuth\Contracts\JWTSubject;
@@ -20,6 +21,7 @@ class UserModel extends Authenticatable implements JWTSubject, ModelInterface
     use SoftDeletes, HasRelationships, HasFactory;
 
     // use RecordSignature;
+
 
     /**
      * Menentukan nama tabel yang terhubung dengan Class ini
@@ -138,7 +140,7 @@ class UserModel extends Authenticatable implements JWTSubject, ModelInterface
 
     public function getAll(array $filter, int $itemPerPage = 0, string $sort = ''): object
     {
-        $user = $this->query()->with('role');
+        $user = $this->query()->with(['role', 'borrow']);
 
         if (!empty($filter['nama'])) {
             $user->where('nama', 'LIKE', '%' . $filter['nama'] . '%');

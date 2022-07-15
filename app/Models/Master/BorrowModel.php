@@ -2,15 +2,18 @@
 
 namespace App\Models\Master;
 
+use App\Http\Traits\RecordSignature;
 use App\Repository\ModelInterface;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\User\UserModel;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Concerns\HasRelationships;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class BorrowModel extends Model implements ModelInterface
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes, HasRelationships;
     protected $table = 'm_borrow';
     protected $guarded = [
         'id',
@@ -25,12 +28,6 @@ class BorrowModel extends Model implements ModelInterface
     public function getAll(array $filter, int $itemPerPage, string $sort): object
     {
         $borrow = $this->query()->with('user', 'book');
-        if (!empty($filter['user_id'])) {
-            $borrow->where('user_id', $filter['user_id']);
-        }
-        if (!empty($filter['book_id'])) {
-            $borrow->where('book_id', $filter['book_id']);
-        }
         if (!empty($filter['borrow_date'])) {
             $borrow->where('borrow_date', $filter['borrow_date']);
         }
@@ -42,6 +39,22 @@ class BorrowModel extends Model implements ModelInterface
         $itemPerPage = $itemPerPage > 0 ? $itemPerPage : false;
         return $borrow->paginate($itemPerPage)->appends('sort', $sort);
     }
+
+    public function getByUser(array $filter, int $itemPerPage, string $sort): object
+    {
+        $borrow = $this->query()->with('user', 'book')->where('user_id', $filter['user_id']);
+        if (!empty($filter['borrow_date'])) {
+            $borrow->where('borrow_date', $filter['borrow_date']);
+        }
+        if (!empty($filter['return_date'])) {
+            $borrow->where('return_date', $filter['return_date']);
+        }
+        $sort = $sort ?: 'id DESC';
+        $borrow->orderByRaw($sort);
+        $itemPerPage = $itemPerPage > 0 ? $itemPerPage : false;
+        return $borrow->paginate($itemPerPage)->appends('sort', $sort);
+    }
+
     public function getById(int $id): object
     {
         return $this->find($id);
@@ -50,12 +63,17 @@ class BorrowModel extends Model implements ModelInterface
     public function store(array $payload)
     {
         $payload['borrow_date'] = Carbon::now()->format('Y-m-d');
+        BooksModel::find($payload['book_id'])->decrement('qty');
         return $this->create($payload);
     }
 
     public function edit(array $payload, int $id)
     {
         $payload['return_date'] = Carbon::now()->format('Y-m-d');
+        // update stock book
+        $book = BooksModel::find($payload['book_id']);
+        $book->increment('qty', 1);
+        $book->save();
         return $this->find($id)->update($payload);
     }
 

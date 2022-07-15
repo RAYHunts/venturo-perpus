@@ -41,7 +41,6 @@ export class HorizontaltopbarComponent implements OnInit, AfterViewInit {
             suppressScrollX: true,
             wheelSpeed: 0.3,
         };
-
         this.authService.getProfile().subscribe((user: any) => {
             this.userLogin = user;
         });
