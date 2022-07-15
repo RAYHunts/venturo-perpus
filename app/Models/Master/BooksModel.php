@@ -80,4 +80,12 @@ class BooksModel extends Model implements ModelInterface
         $book->save();
         return $book;
     }
+
+    public function photoUrl()
+    {
+        if (empty($this->photo)) {
+            return "https://via.placeholder.com/640x480.png/0044aa?text=" . $this->title;
+        }
+        return $this->photo;
+    }
 }

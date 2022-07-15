@@ -36,7 +36,8 @@ class BorrowModel extends Model implements ModelInterface
         }
         $sort = $sort ?: 'id DESC';
         $borrow->orderByRaw($sort);
-        $itemPerPage = $itemPerPage > 0 ? $itemPerPage : false;
+        $itemPerPage = $itemPerPage > 0 ? $itemPerPage : $this->query()->count();
+
         return $borrow->paginate($itemPerPage)->appends('sort', $sort);
     }
 
