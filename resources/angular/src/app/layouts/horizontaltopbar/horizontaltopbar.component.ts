@@ -87,8 +87,8 @@ export class HorizontaltopbarComponent implements OnInit, AfterViewInit {
      * Togglemenu bar
      */
     toggleMenubar() {
-        const element = document.getElementById("topnav-menu-content");
-        element.classList.toggle("show");
+        const element = document.getElementById("navbarSupportedContent");
+        element.classList.toggle("collapse");
     }
 
     /**

@@ -26,7 +26,7 @@
                         <table
                             datatable
                             [dtOptions]="dtOptions"
-                            class="table table-hover"
+                            class="table table-hover text-center"
                             data-page-length="20"
                         >
                             <thead class="text-primary">
@@ -46,7 +46,7 @@
                                 <tr
                                     *ngFor="let list of listBorrows; index as i"
                                 >
-                                    <td>
+                                    <td class="align-middle">
                                         {{ i + 1 }}
                                     </td>
                                     <td>

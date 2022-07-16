@@ -1,1 +1,62 @@
-<p>laporan-user works!</p>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between">
+                    <h1>Daftar Pengguna</h1>
+                    <div
+                        role="group"
+                        class="btn-group btn-group-sm btn-group-justified blocks"
+                    >
+                        <a
+                            href="javascript: void(0);"
+                            [routerLink]="['/master/roles']"
+                            class="btn btn-sm btn-outline-info mr-2"
+                        >
+                            <i
+                                class="fa fa-cogs font-size-14 align-middle mr-1"
+                            ></i>
+                            Hak Akses
+                        </a>
+                        <button
+                            type="button"
+                            class="btn btn-sm btn-outline-secondary mr-2"
+                        >
+                            <i
+                                class="fa fa-search font-size-14 align-middle mr-1"
+                            ></i>
+                            Pencarian
+                        </button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <table
+                        datatable
+                        [dtOptions]="dtOptions"
+                        class="table table-hover"
+                        data-page-length="20"
+                    >
+                        <thead class="thead-light">
+                            <tr>
+                                <td>No</td>
+                                <td>Nama</td>
+                                <td>Jumlah Buku</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let val of listUser; index as i">
+                                <td>
+                                    {{ i + 1 }}
+                                </td>
+                                <td class="vertical-middle">{{ val.nama }}</td>
+                                <td class="vertical-middle">
+                                    {{ val.borrows.length }}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

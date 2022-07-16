@@ -30,7 +30,6 @@ export class ListBooksComponent implements OnInit {
         this.getBook();
         this.authService.getProfile().subscribe((user: any) => {
             this.userLogin = user;
-            console.log(this.userLogin);
         });
     }
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\User;
 
+use App\Http\Resources\Borrow\BorrowResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class UserResource extends JsonResource
@@ -21,7 +22,7 @@ class UserResource extends JsonResource
             'fotoUrl' => $this->fotoUrl(),
             'updated_security' => $this->updated_security,
             'akses' => $this->role->nama,
-            'borrows' => $this->borrow,
+            'borrows' => BorrowResource::collection($this->borrow),
         ];
     }
 }

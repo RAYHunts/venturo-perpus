@@ -19,7 +19,7 @@ class BorrowModel extends Model implements ModelInterface
         'id',
     ];
 
-    public $dates = [
+    protected $dates = [
         'borrow_date',
         'return_date',
     ];
@@ -86,12 +86,12 @@ class BorrowModel extends Model implements ModelInterface
     public function status()
     {
         if ($this->return_date != null) {
-            if ($this->return_date <= $this->must_return_date()) {
+            if ($this->return_date <= $this->mustReturnDate()) {
                 return 'ontime';
             } else {
                 return 'late return';
             }
-        } elseif ($this->must_return_date() < Carbon::now()) {
+        } elseif ($this->mustReturnDate() < Carbon::now()) {
             return 'late not return';
         }
         return 'borrowed';
@@ -105,10 +105,10 @@ class BorrowModel extends Model implements ModelInterface
                 $denda = 0;
                 break;
             case 'late return':
-                $denda = $this->must_return_date()->diffInDays($this->return_date);
+                $denda = $this->mustReturnDate()->diffInDays($this->return_date);
                 break;
             case 'late not return':
-                $denda = $this->must_return_date()->diffInDays(Carbon::now());
+                $denda = $this->mustReturnDate()->diffInDays(Carbon::now());
                 break;
             default:
                 $denda = 0;
@@ -117,7 +117,7 @@ class BorrowModel extends Model implements ModelInterface
         return $denda * 5000;
     }
 
-    public function must_return_date()
+    public function mustReturnDate()
     {
         return $this->borrow_date->addDays(7);
     }

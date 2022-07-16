@@ -22,21 +22,23 @@ class BooksModel extends Model implements ModelInterface
 
     public function getAll(array $filter, int $itemPerPage, string $sort): object
     {
-        $books = $this->query()->with(['borrow' => function ($query) {
-            $query->select(['id', 'user_id', 'book_id', 'borrow_date', 'return_date'])->whereNull('return_date');
-        }, 'borrow.user' => function ($query) {
-            $query->select('id', 'nama');
-        }]);
-        $books->where('qty', '>', 0);
-        if (!empty($filter['title'])) {
-            $books->where('title', 'LIKE', '%' . $filter['title'] . '%');
+        $books = $this->query()->with('borrow');
+        if (!empty($filter['borrowed'])) {
+            if ($filter['borrowed'] == 'true') {
+                $books->whereRelation('borrow', 'id', '>', 0);
+            } else {
+                $books->where('qty', '>', 0);
+            }
         }
-        if (!empty($filter['author'])) {
-            $books->where('author', 'LIKE', '%' . $filter['author'] . '%');
-        }
-        if (!empty($filter['publisher'])) {
-            $books->where('publisher', 'LIKE', '%' . $filter['publisher'] . '%');
-        }
+        // if (!empty($filter['title'])) {
+        //     $books->where('title', 'LIKE', '%' . $filter['title'] . '%');
+        // }
+        // if (!empty($filter['author'])) {
+        //     $books->where('author', 'LIKE', '%' . $filter['author'] . '%');
+        // }
+        // if (!empty($filter['publisher'])) {
+        //     $books->where('publisher', 'LIKE', '%' . $filter['publisher'] . '%');
+        // }
         $sort = $sort ?: 'id DESC';
         $books->orderByRaw($sort);
         $itemPerPage = $itemPerPage > 0 ? $itemPerPage : $this->query()->count();
@@ -68,6 +70,12 @@ class BooksModel extends Model implements ModelInterface
         return $this->hasMany(BorrowModel::class, 'book_id', 'id');
     }
 
+    public function getBorrowedBooks(array $filter, int $itemPerPage, string $sort): object
+    {
+        $books = $this->query()->with('borrow')->whereRelation('borrow', '>', 0);
+        return $books->paginate($itemPerPage)->appends('sort', $sort);
+    }
+
     public function borrowing($user_id, $id)
     {
         BorrowModel::create([
@@ -84,7 +92,7 @@ class BooksModel extends Model implements ModelInterface
     public function photoUrl()
     {
         if (empty($this->photo)) {
-            return "https://via.placeholder.com/640x480.png/0044aa?text=" . $this->title;
+            return "https://via.placeholder.com/300x380.png/0044aa?text=" . $this->title;
         }
         return $this->photo;
     }

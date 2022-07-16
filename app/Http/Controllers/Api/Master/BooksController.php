@@ -6,8 +6,10 @@ use App\Helpers\Master\BooksHelper;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Book\BooksCollection;
 use App\Http\Resources\Book\BooksResource;
+use App\Models\Master\BooksModel;
 use GrahamCampbell\ResultType\Success;
 use Illuminate\Http\Request;
+use PhpParser\Node\Expr\Cast\Bool_;
 
 class BooksController extends Controller
 {
@@ -23,6 +25,7 @@ class BooksController extends Controller
             'title' => $request->title ?? '',
             'author' => $request->author ?? '',
             'publisher' => $request->publisher ?? '',
+            'borrowed' => $request->borrowed ?? false,
         ];
 
         $listBooks = $this->book->getAll($filter, $request->limit ?? 0, $request->sort ?? '');

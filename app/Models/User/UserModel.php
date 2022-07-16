@@ -140,7 +140,10 @@ class UserModel extends Authenticatable implements JWTSubject, ModelInterface
 
     public function getAll(array $filter, int $itemPerPage = 0, string $sort = ''): object
     {
-        $user = $this->query()->with(['role']);
+        $user = $this->query()->with(['role', 'borrow.book']);
+        if ($filter['borrowing']) {
+            $user->whereRelation('borrow', 'id', '>', 0);
+        }
         if (!empty($filter['nama'])) {
             $user->where('nama', 'LIKE', '%' . $filter['nama'] . '%');
         }
@@ -176,8 +179,8 @@ class UserModel extends Authenticatable implements JWTSubject, ModelInterface
         return $this->find($id)->delete();
     }
 
-    // public function borrow()
-    // {
-    //     return $this->hasMany(BorrowModel::class, 'user_id', 'id');
-    // }
+    public function borrow()
+    {
+        return $this->hasMany(BorrowModel::class, 'user_id', 'id');
+    }
 }

@@ -26,15 +26,19 @@ export class ListBorrowComponent implements OnInit {
     ) {}
 
     ngOnInit(): void {
+        this.getUserLogin();
+    }
+
+    getUserLogin() {
         this.authService.getProfile().subscribe((user: any) => {
             this.userLogin = user;
+            if (this.userLogin.akses == "Super Admin") {
+                this.getBorrow();
+            }
+            if (this.userLogin.akses == "User") {
+                this.getBorrowbyUserID(this.userLogin.id);
+            }
         });
-        if (this.userLogin.akses == "Super Admin") {
-            this.getBorrow();
-        }
-        if (this.userLogin.akses == "User") {
-            this.getBorrowbyUserID(this.userLogin.id);
-        }
     }
 
     getBorrow() {
@@ -55,7 +59,6 @@ export class ListBorrowComponent implements OnInit {
                     limit: dataTablesParameter.length,
                 };
                 this.borrowService.getBorrows(params).subscribe((res: any) => {
-                    console.log(params);
                     this.listBorrows = res.data.list;
                     callback({
                         recordsTotal: res.data.meta.total,

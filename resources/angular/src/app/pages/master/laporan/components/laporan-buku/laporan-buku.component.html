@@ -1,1 +1,179 @@
-<p>laporan-buku works!</p>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between">
+                    <h1 class="card-title">Laporan Peminjamam Buku</h1>
+                    <div
+                        role="group"
+                        class="btn-group btn-group-sm btn-group-justified blocks"
+                    ></div>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table
+                            datatable
+                            [dtOptions]="dtOptions"
+                            class="table table-hover"
+                            data-page-length="20"
+                        >
+                            <thead class="text-primary">
+                                <tr>
+                                    <th class="align-middle text-center">No</th>
+                                    <th class="align-middle text-center">
+                                        Title
+                                    </th>
+                                    <th class="align-middle text-center">
+                                        Author
+                                    </th>
+                                    <th class="align-middle text-center">
+                                        Publisher
+                                    </th>
+                                    <th class="align-middle text-center">
+                                        Year
+                                    </th>
+                                    <th class="align-middle text-center">
+                                        Stocks
+                                    </th>
+                                    <th class="align-middle text-center">
+                                        Peminjam
+                                    </th>
+                                    <th class="align-middle text-center">
+                                        Tanggal Peminjamam
+                                    </th>
+                                    <th class="align-middle text-center">
+                                        Tanggal Dikembalikan
+                                    </th>
+                                    <th class="align-middle text-center">
+                                        Wajib Dikembalikan Pada
+                                    </th>
+                                    <th class="align-middle text-center">
+                                        Status
+                                    </th>
+                                    <th class="align-middle text-center">
+                                        Denda 5K / Hari
+                                    </th>
+                                    <th class="align-middle text-center">
+                                        Total Peminjam
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <ng-container
+                                    *ngFor="let books of listBooks; index as i"
+                                >
+                                    <tr
+                                        *ngFor="
+                                            let book of books.borrows;
+                                            index as j
+                                        "
+                                    >
+                                        <td
+                                            [rowSpan]="books.borrows.length"
+                                            *ngIf="j == 0"
+                                            class="align-middle text-center"
+                                        >
+                                            {{ i + 1 }}
+                                        </td>
+                                        <td
+                                            [rowSpan]="books.borrows.length"
+                                            *ngIf="j == 0"
+                                            class="align-middle text-center"
+                                        >
+                                            {{ books.title }}
+                                        </td>
+                                        <td
+                                            [rowSpan]="books.borrows.length"
+                                            *ngIf="j == 0"
+                                            class="align-middle text-center"
+                                        >
+                                            {{ books.author }}
+                                        </td>
+                                        <td
+                                            [rowSpan]="books.borrows.length"
+                                            *ngIf="j == 0"
+                                            class="align-middle text-center"
+                                        >
+                                            {{ books.publisher }}
+                                        </td>
+                                        <td
+                                            [rowSpan]="books.borrows.length"
+                                            *ngIf="j == 0"
+                                            class="align-middle text-center"
+                                        >
+                                            {{ books.publish_year }}
+                                        </td>
+                                        <td
+                                            [rowSpan]="books.borrows.length"
+                                            *ngIf="j == 0"
+                                            class="align-middle text-center"
+                                        >
+                                            {{ books.qty }}
+                                        </td>
+                                        <td class="align-middle text-center">
+                                            {{ book.user.nama }}
+                                        </td>
+
+                                        <td class="align-middle text-center">
+                                            {{ book.borrow_date }}
+                                        </td>
+                                        <td class="align-middle text-center">
+                                            {{ book.return_date }}
+                                        </td>
+                                        <td class="align-middle text-center">
+                                            {{ book.must_return_date }}
+                                        </td>
+                                        <td class="align-middle text-center">
+                                            <span
+                                                [ngClass]="{
+                                                    'btn-success':
+                                                        book.status == 'ontime',
+                                                    'btn-danger':
+                                                        book.status ==
+                                                            'late return' ||
+                                                        book.status ==
+                                                            'late not return',
+                                                    'btn-warning':
+                                                        book.status ==
+                                                        'borrowed'
+                                                }"
+                                                class="btn"
+                                            >
+                                                {{
+                                                    book.status == "ontime"
+                                                        ? "Dikembalikan"
+                                                        : book.status ==
+                                                          "late return"
+                                                        ? "Terlambat Dikembalikan"
+                                                        : book.status ==
+                                                          "late not return"
+                                                        ? "Terlambat Belum Dikembalikan"
+                                                        : "Sedang Dipinjam"
+                                                }}
+                                            </span>
+                                        </td>
+                                        <td class="align-middle text-center">
+                                            {{
+                                                book.denda == 0
+                                                    ? "-"
+                                                    : (book.denda
+                                                      | currency: "Rp. ")
+                                            }}
+                                        </td>
+                                        <td
+                                            [rowSpan]="books.borrows.length"
+                                            *ngIf="j == 0"
+                                            class="align-middle text-center"
+                                        >
+                                            {{ books.borrows.length }}
+                                        </td>
+                                    </tr>
+                                </ng-container>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

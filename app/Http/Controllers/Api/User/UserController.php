@@ -30,6 +30,7 @@ class UserController extends Controller
         $filter = [
             'nama' => $request->nama ?? '',
             'email' => $request->email ?? '',
+            'borrowing' => $request->borrowing ?? false,
         ];
         $users = $this->user->getAll($filter, $request->limit ?? 0, $request->sort ?? '');
 

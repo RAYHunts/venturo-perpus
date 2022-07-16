@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Book;
 
+use App\Http\Resources\Borrow\BorrowResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class BooksResource extends JsonResource
@@ -23,7 +24,7 @@ class BooksResource extends JsonResource
             'publisher' => $this->publisher,
             'publish_year' => $this->publish_year,
             'qty' => $this->qty,
-            'borrows' => $this->borrow,
+            'borrows' => BorrowResource::collection($this->borrow),
         ];
     }
 }
