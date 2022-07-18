@@ -134,8 +134,7 @@ class UserModel extends Authenticatable implements JWTSubject, ModelInterface
         if (empty($this->foto)) {
             return asset('assets/img/no-image.png');
         }
-
-        return $this->foto;
+        return asset('storage/' . $this->foto);
     }
 
     public function getAll(array $filter, int $itemPerPage = 0, string $sort = ''): object

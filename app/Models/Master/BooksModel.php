@@ -94,6 +94,6 @@ class BooksModel extends Model implements ModelInterface
         if (empty($this->photo)) {
             return "https://via.placeholder.com/300x380.png/0044aa?text=" . $this->title;
         }
-        return $this->photo;
+        return asset('storage/' . $this->photo);
     }
 }

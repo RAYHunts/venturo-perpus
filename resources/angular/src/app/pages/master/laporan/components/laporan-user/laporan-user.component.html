@@ -38,21 +38,86 @@
                     >
                         <thead class="thead-light">
                             <tr>
-                                <td>No</td>
-                                <td>Nama</td>
-                                <td>Jumlah Buku</td>
+                                <th
+                                    class="text-center align-middle"
+                                    rowspan="2"
+                                >
+                                    No
+                                </th>
+                                <th
+                                    class="text-center align-middle"
+                                    rowspan="2"
+                                >
+                                    Nama
+                                </th>
+                                <th
+                                    class="text-center align-middle"
+                                    colspan="4"
+                                >
+                                    Buku
+                                </th>
+                                <th
+                                    class="text-center align-middle"
+                                    rowspan="2"
+                                >
+                                    Jumlah Pinjaman
+                                </th>
+                            </tr>
+                            <tr>
+                                <th class="text-center align-middle">Judul</th>
+                                <th class="text-center align-middle">
+                                    Pengarang
+                                </th>
+                                <th class="text-center align-middle">
+                                    Penerbit
+                                </th>
+                                <th class="text-center align-middle">Tahun</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let val of listUser; index as i">
-                                <td>
-                                    {{ i + 1 }}
-                                </td>
-                                <td class="vertical-middle">{{ val.nama }}</td>
-                                <td class="vertical-middle">
-                                    {{ val.borrows.length }}
-                                </td>
-                            </tr>
+                            <ng-container
+                                *ngFor="let val of listUser; index as i"
+                            >
+                                <tr
+                                    *ngFor="
+                                        let borrow of val.borrows;
+                                        index as j
+                                    "
+                                >
+                                    <td
+                                        *ngIf="j == 0"
+                                        [rowSpan]="val.borrows.length"
+                                    >
+                                        {{ i + 1 }}
+                                    </td>
+                                    <td
+                                        class="text-center align-middle"
+                                        *ngIf="j == 0"
+                                        [rowSpan]="val.borrows.length"
+                                    >
+                                        {{ val.nama }}
+                                    </td>
+                                    <td class="text-center align-middle">
+                                        {{ borrow.book.title }}
+                                    </td>
+                                    <td class="text-center align-middle">
+                                        {{ borrow.book.author }}
+                                    </td>
+                                    <td class="text-center align-middle">
+                                        {{ borrow.book.publisher }}
+                                    </td>
+                                    <td class="text-center align-middle">
+                                        {{ borrow.book.publish_year }}
+                                    </td>
+                                    <td
+                                        class="text-center align-middle"
+                                        *ngIf="j == 0"
+                                        [rowSpan]="val.borrows.length"
+                                    >
+                                        {{ val.borrows.length }}
+                                    </td>
+                                </tr>
+                            </ng-container>
                         </tbody>
                     </table>
                 </div>

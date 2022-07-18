@@ -17,7 +17,7 @@ class BorrowResource extends JsonResource
         return [
             'id' => $this->id,
             'user' => $this->user->only(['id', 'nama']),
-            'book' => $this->book->only(['id', 'title']),
+            'book' => $this->book->only(['id', 'title', 'author', 'publisher', 'publish_year']),
             'borrow_date' => $this->borrow_date->locale('id')->isoFormat('D MMMM Y'),
             'return_date' => $this->return_date ? $this->return_date->locale('id')->isoFormat('D MMMM Y') : null,
             'status' => $this->status(),

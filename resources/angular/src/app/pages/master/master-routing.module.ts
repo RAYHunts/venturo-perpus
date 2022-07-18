@@ -8,6 +8,7 @@ import { LaporanBukuComponent } from "./laporan/components/laporan-buku/laporan-
 import { LaporanUserComponent } from "./laporan/components/laporan-user/laporan-user.component";
 import { DaftarRolesComponent } from "./roles/components/daftar-roles/daftar-roles.component";
 import { DaftarUserComponent } from "./users/components/daftar-user/daftar-user.component";
+import { ProfileUserComponent } from "./users/components/profile-user/profile-user.component";
 
 const routes: Routes = [
     { path: "users", component: DaftarUserComponent },
@@ -18,6 +19,7 @@ const routes: Routes = [
     { path: "borrows", component: ListBorrowComponent },
     { path: "books-report", component: LaporanBukuComponent },
     { path: "users-report", component: LaporanUserComponent },
+    { path: "profile", component: ProfileUserComponent },
 ];
 
 @NgModule({

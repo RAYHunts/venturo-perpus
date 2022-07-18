@@ -1,0 +1,136 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between">
+                    <h1>Profile User</h1>
+                </div>
+                <div class="card-body">
+                    <form>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-md-4">Nama</label>
+                                    <div class="col-md-8">
+                                        <input
+                                            [(ngModel)]="formModel.nama"
+                                            type="text"
+                                            name="nama"
+                                            class="form-control"
+                                            placeholder="Nama Pengguna"
+                                        />
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-md-4">Email</label>
+                                    <div class="col-md-8">
+                                        <input
+                                            type="text"
+                                            name="email"
+                                            class="form-control"
+                                            placeholder="user@gmail.com"
+                                            [(ngModel)]="formModel.email"
+                                        />
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-md-4">Password</label>
+                                    <div class="col-md-8">
+                                        <input
+                                            [(ngModel)]="formModel.password"
+                                            type="password"
+                                            name="password"
+                                            class="form-control"
+                                            placeholder="Password"
+                                        />
+                                    </div>
+                                </div>
+                                <div
+                                    class="form-group row"
+                                    *ngIf="formModel.password"
+                                >
+                                    <label class="col-md-4 required"
+                                        >Konfirmasi Password</label
+                                    >
+                                    <div class="col-md-8">
+                                        <input
+                                            type="password"
+                                            name="passwordConfirm"
+                                            class="form-control"
+                                            placeholder="Password"
+                                            [(ngModel)]="
+                                                formModel.passwordConfirm
+                                            "
+                                            [ngClass]="{
+                                                'is-invalid':
+                                                    formModel.password !=
+                                                        formModel.passwordConfirm &&
+                                                    formModel.passwordConfirm !=
+                                                        null,
+                                                'is-valid':
+                                                    formModel.password ==
+                                                    formModel.passwordConfirm
+                                            }"
+                                        />
+                                        <div
+                                            class="invalid-feedback"
+                                            *ngIf="
+                                                formModel.password !=
+                                                formModel.passwordConfirm
+                                            "
+                                        >
+                                            Password tidak sama
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-md-4">Foto</label>
+                                    <div class="col-md-8">
+                                        <input
+                                            type="file"
+                                            accept="image/*"
+                                            (change)="onFileChange($event)"
+                                        />
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-md-4">Hak Akses</label>
+                                    <div class="col-md-8">
+                                        <input
+                                            type="text"
+                                            readonly
+                                            class="form-control"
+                                            value="{{ formModel.akses.nama }}"
+                                            disabled
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <img
+                                    [src]="formModel.foto"
+                                    class="img-fluid mb-3"
+                                />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group row">
+                                    <div class="col-md-12 text-right">
+                                        <button
+                                            type="submit"
+                                            class="btn btn-primary"
+                                            (click)="onSubmit()"
+                                        >
+                                            Simpan
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

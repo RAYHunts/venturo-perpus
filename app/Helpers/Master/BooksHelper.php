@@ -27,6 +27,9 @@ class BooksHelper implements CrudInterface
     public function create(array $payload): array
     {
         try {
+            if (!empty($payload['photo'])) {
+                $payload['photo'] = $payload['photo']->store('uploads/books');
+            }
             $book = $this->booksModel->create($payload);
             return [
                 'status' => true,
@@ -43,6 +46,9 @@ class BooksHelper implements CrudInterface
     public function update(array $payload, int $id): array
     {
         try {
+            if (!empty($payload['photo'])) {
+                $payload['photo'] = $payload['photo']->store('uploads/books');
+            }
             $this->booksModel->edit($payload, $id);
             return [
                 'status' => true,

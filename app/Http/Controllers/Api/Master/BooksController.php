@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\Master;
 
 use App\Helpers\Master\BooksHelper;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Books\BooksRequest;
 use App\Http\Resources\Book\BooksCollection;
 use App\Http\Resources\Book\BooksResource;
 use App\Models\Master\BooksModel;
@@ -41,7 +42,7 @@ class BooksController extends Controller
         return response()->success(new BooksResource($dataBook));
     }
 
-    public function store(Request $request)
+    public function store(BooksRequest $request)
     {
         $dataInput = $request->only(['title', 'description', 'photo', 'publisher', 'publish_year', 'author', 'qty']);
         $dataBook = $this->book->create($dataInput);
@@ -51,7 +52,7 @@ class BooksController extends Controller
         return response()->success([], 'Data buku berhasil disimpan');
     }
 
-    public function update(Request $request)
+    public function update(BooksRequest $request)
     {
         $dataInput = $request->only(['title', 'description', 'photo', 'publisher', 'publish_year', 'author', 'qty', 'id']);
         $dataBook = $this->book->update($dataInput, $dataInput['id']);

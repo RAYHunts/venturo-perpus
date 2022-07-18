@@ -145,7 +145,11 @@
                 </button>
                 <div class="dropdown-menu dropdown-menu-right" ngbDropdownMenu>
                     <!-- item-->
-                    <a class="dropdown-item" href="javascript: void(0);">
+                    <a
+                        class="dropdown-item"
+                        href="javascript: void(0);"
+                        [routerLink]="['/master/profile']"
+                    >
                         <i
                             class="bx bx-user font-size-16 align-middle mr-1"
                         ></i>

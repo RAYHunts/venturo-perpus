@@ -6,6 +6,7 @@ import {
     Output,
     SimpleChange,
 } from "@angular/core";
+import { Observable, Subscriber } from "rxjs";
 import { LandaService } from "src/app/core/services/landa.service";
 import { BookService } from "../../services/book.service";
 
@@ -35,6 +36,32 @@ export class FormBookComponent implements OnInit {
     ) {}
 
     ngOnInit(): void {}
+
+    onFileChange(event) {
+        const file = event.target.files[0];
+        this.convertToBase64(file);
+    }
+
+    convertToBase64(file: File) {
+        new Observable((subscriber: Subscriber<any>) => {
+            this.readFile(file, subscriber);
+        }).subscribe((image) => {
+            this.formModel.photo = image;
+        });
+    }
+
+    readFile(file, subscriber: Subscriber<any>) {
+        const fileReader = new FileReader();
+        fileReader.readAsDataURL(file);
+        fileReader.onload = () => {
+            subscriber.next(fileReader.result);
+            subscriber.complete();
+        };
+        fileReader.onerror = (error) => {
+            subscriber.error(error);
+            subscriber.complete();
+        };
+    }
 
     emptyForm() {
         this.mode = "add";
