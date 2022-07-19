@@ -12,13 +12,13 @@ class RoleModel extends Model implements ModelInterface
     use SoftDeletes, RecordSignature;
 
     /**
-    * Menentukan nama tabel yang terhubung dengan Class ini
-    *
-    * @var string
-    */
-   protected $table = 'user_roles';
+     * Menentukan nama tabel yang terhubung dengan Class ini
+     *
+     * @var string
+     */
+    protected $table = 'user_roles';
 
-   /**
+    /**
      * Menentukan primary key, jika nama kolom primary key adalah "id",
      * langkah deklarasi ini bisa dilewati
      *
@@ -52,14 +52,14 @@ class RoleModel extends Model implements ModelInterface
         $role = $this->query();
 
         if (!empty($filter['nama'])) {
-            $role->where('nama', 'LIKE', '%'.$filter['nama'].'%');
+            $role->where('nama', 'LIKE', '%' . $filter['nama'] . '%');
         }
 
         $sort = $sort ?: 'id DESC';
         $role->orderByRaw($sort ?: 'id DESC');
 
         // Gunakan fitur "Laravel Pagination"
-        $itemPerPage = ($itemPerPage > 0) ? $itemPerPage : false;        
+        $itemPerPage = ($itemPerPage > 0) ? $itemPerPage : false;
         return $role->paginate($itemPerPage)->appends('sort', $sort);
     }
 
@@ -68,15 +68,26 @@ class RoleModel extends Model implements ModelInterface
         return $this->find($id);
     }
 
-    public function store(array $payload) {
+    public function store(array $payload)
+    {
         return $this->create($payload);
     }
 
-    public function edit(array $payload, int $id) {
+    public function edit(array $payload, int $id)
+    {
         return $this->find($id)->update($payload);
     }
 
-    public function drop(int $id) {
+    public function drop(int $id)
+    {
         return $this->find($id)->delete();
+    }
+
+    public function isAdmin()
+    {
+        if ($this->is_admin == 1) {
+            return true;
+        }
+        return false;
     }
 }

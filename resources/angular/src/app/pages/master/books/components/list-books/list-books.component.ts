@@ -90,10 +90,16 @@ export class ListBooksComponent implements OnInit {
     }
 
     borrowBook(user_id, book_id) {
-        this.bookService.borrowBook(user_id, book_id).subscribe((res: any) => {
-            this.landaService.alertSuccess("Berhasil", res.message);
-            this.reloadDataTable();
-        });
+        this.bookService.borrowBook(user_id, book_id).subscribe(
+            (res: any) => {
+                this.landaService.alertSuccess("Berhasil", res.message);
+                this.reloadDataTable();
+            },
+            (err: any) => {
+                this.landaService.alertError("Mohon Maaf", err.error.errors);
+                console.log(err);
+            }
+        );
     }
 
     deleteBook(bookId) {
@@ -113,6 +119,7 @@ export class ListBooksComponent implements OnInit {
                         this.reloadDataTable();
                     },
                     (err: any) => {
+                        this.landaService.alertError("Gagal", err.error.errors);
                         console.log(err);
                     }
                 );

@@ -3,21 +3,11 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header d-flex justify-content-between">
-                    <h1>Daftar Pengguna</h1>
+                    <h1>Rekap Peminjaman User</h1>
                     <div
                         role="group"
                         class="btn-group btn-group-sm btn-group-justified blocks"
                     >
-                        <a
-                            href="javascript: void(0);"
-                            [routerLink]="['/master/roles']"
-                            class="btn btn-sm btn-outline-info mr-2"
-                        >
-                            <i
-                                class="fa fa-cogs font-size-14 align-middle mr-1"
-                            ></i>
-                            Hak Akses
-                        </a>
                         <button
                             type="button"
                             class="btn btn-sm btn-outline-secondary mr-2"
@@ -52,9 +42,33 @@
                                 </th>
                                 <th
                                     class="text-center align-middle"
-                                    colspan="4"
+                                    colspan="2"
                                 >
                                     Buku
+                                </th>
+                                <th
+                                    class="text-center align-middle"
+                                    rowspan="2"
+                                >
+                                    Tanggal Peminjaman
+                                </th>
+                                <th
+                                    class="text-center align-middle"
+                                    rowspan="2"
+                                >
+                                    Tanggal Pengembalian
+                                </th>
+                                <th
+                                    class="text-center align-middle"
+                                    rowspan="2"
+                                >
+                                    Status
+                                </th>
+                                <th
+                                    class="text-center align-middle"
+                                    rowspan="2"
+                                >
+                                    Denda
                                 </th>
                                 <th
                                     class="text-center align-middle"
@@ -68,10 +82,6 @@
                                 <th class="text-center align-middle">
                                     Pengarang
                                 </th>
-                                <th class="text-center align-middle">
-                                    Penerbit
-                                </th>
-                                <th class="text-center align-middle">Tahun</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -87,6 +97,7 @@
                                     <td
                                         *ngIf="j == 0"
                                         [rowSpan]="val.borrows.length"
+                                        class="text-center align-middle"
                                     >
                                         {{ i + 1 }}
                                     </td>
@@ -104,10 +115,46 @@
                                         {{ borrow.book.author }}
                                     </td>
                                     <td class="text-center align-middle">
-                                        {{ borrow.book.publisher }}
+                                        {{ borrow.borrow_date }}
                                     </td>
                                     <td class="text-center align-middle">
-                                        {{ borrow.book.publish_year }}
+                                        {{ borrow.return_date }}
+                                    </td>
+                                    <td class="align-middle text-center">
+                                        <span
+                                            [ngClass]="{
+                                                'btn-success':
+                                                    borrow.status == 'ontime',
+                                                'btn-danger':
+                                                    borrow.status ==
+                                                        'late return' ||
+                                                    borrow.status ==
+                                                        'late not return',
+                                                'btn-warning':
+                                                    borrow.status == 'borrowed'
+                                            }"
+                                            class="btn"
+                                        >
+                                            {{
+                                                borrow.status == "ontime"
+                                                    ? "Dikembalikan"
+                                                    : borrow.status ==
+                                                      "late return"
+                                                    ? "Terlambat Dikembalikan"
+                                                    : borrow.status ==
+                                                      "late not return"
+                                                    ? "Terlambat Belum Dikembalikan"
+                                                    : "Sedang Dipinjam"
+                                            }}
+                                        </span>
+                                    </td>
+                                    <td class="text-center align-middle">
+                                        {{
+                                            borrow.denda == 0
+                                                ? "-"
+                                                : (borrow.denda
+                                                  | currency: "Rp. ")
+                                        }}
                                     </td>
                                     <td
                                         class="text-center align-middle"

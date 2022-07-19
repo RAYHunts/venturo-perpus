@@ -6,11 +6,15 @@ use App\Http\Traits\RecordSignature;
 use App\Models\User\UserModel;
 use App\Repository\ModelInterface;
 use Carbon\Carbon;
+use Exception;
 use Illuminate\Database\Eloquent\Concerns\HasRelationships;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\DB;
+use PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\Wizard\Errors;
+use PhpParser\ErrorHandler\Throwing;
+use Throwable;
 
 class BooksModel extends Model implements ModelInterface
 {
@@ -26,9 +30,9 @@ class BooksModel extends Model implements ModelInterface
         if (!empty($filter['borrowed'])) {
             if ($filter['borrowed'] == 'true') {
                 $books->whereRelation('borrow', 'id', '>', 0);
-            } else {
-                $books->where('qty', '>', 0);
             }
+        } else {
+            // $books->where('qty', '>', 0);
         }
         // if (!empty($filter['title'])) {
         //     $books->where('title', 'LIKE', '%' . $filter['title'] . '%');
@@ -78,15 +82,19 @@ class BooksModel extends Model implements ModelInterface
 
     public function borrowing($user_id, $id)
     {
-        BorrowModel::create([
-            'user_id' => $user_id,
-            'book_id' => $id,
-            'borrow_date' => Carbon::now()->format('Y-m-d'),
-        ]);
+
         $book = $this->find($id);
-        $book->decrement('qty');
-        $book->save();
-        return $book;
+        if ($book->qty > 0) {
+            $book->decrement('qty');
+            $book->save();
+            BorrowModel::create([
+                'user_id' => $user_id,
+                'book_id' => $id,
+                'borrow_date' => Carbon::now()->format('Y-m-d'),
+            ]);
+            return true;
+        }
+        return false;
     }
 
     public function photoUrl()

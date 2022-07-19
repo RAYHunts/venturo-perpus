@@ -40,8 +40,8 @@ export class BorrowService {
         return this.landaService.DataDelete("/v1/borrows/" + id);
     }
 
-    getUsers() {
-        return this.landaService.DataGet("/v1/users", { limit: 0 });
+    getUsers(arrParameter) {
+        return this.landaService.DataGet("/v1/users", arrParameter);
     }
 
     getBooks() {

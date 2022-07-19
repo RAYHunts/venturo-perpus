@@ -65,9 +65,11 @@ export class FormBorrowComponent implements OnInit {
     }
 
     getUsers() {
-        this.borrowService.getUsers().subscribe((res: any) => {
-            this.users = res.data.list;
-        });
+        this.borrowService
+            .getUsers({ not_admin: true })
+            .subscribe((res: any) => {
+                this.users = res.data.list;
+            });
     }
 
     getBooks() {

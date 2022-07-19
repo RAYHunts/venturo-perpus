@@ -36,7 +36,7 @@
                         role="button"
                         ngbDropdownToggle
                     >
-                        Menu
+                        Master
                         <div class="arrow-down"></div>
                     </a>
                     <div
@@ -48,7 +48,7 @@
                             href="javascript: void(0);"
                             class="col dropdown-item side-nav-link-ref"
                             [routerLink]="['/master/users']"
-                            *ngIf="userLogin.akses == 'Super Admin'"
+                            *ngIf="userLogin.akses.user.view == true"
                             >User</a
                         >
                         <!-- <a
@@ -67,20 +67,40 @@
                             href="javascript: void(0);"
                             class="col dropdown-item side-nav-link-ref"
                             [routerLink]="['/master/books']"
-                            >Daftar Buku</a
+                            >Buku</a
                         >
+                    </div>
+                </li>
+                <li class="nav-item dropdown" ngbDropdown>
+                    <a
+                        class="nav-link dropdown-toggle arrow-none text-dark"
+                        (click)="onMenuClick($event)"
+                        href="javascript: void(0);"
+                        id="topnav-components"
+                        role="button"
+                        ngbDropdownToggle
+                    >
+                        Transaksi
+                        <div class="arrow-down"></div>
+                    </a>
+                    <div
+                        class="dropdown-menu row"
+                        aria-labelledby="topnav-dashboard"
+                        ngbDropdownMenu
+                    >
                         <a
                             href="javascript: void(0);"
                             class="col dropdown-item side-nav-link-ref"
                             [routerLink]="['/master/borrows']"
-                            >Daftar Pinjaman</a
+                            *ngIf="userLogin.akses.borrow.view"
+                            >Peminjaman</a
                         >
                     </div>
                 </li>
                 <li
                     class="nav-item dropdown"
                     ngbDropdown
-                    *ngIf="userLogin.akses == 'Super Admin'"
+                    *ngIf="userLogin.akses.user.view == true"
                 >
                     <a
                         class="nav-link dropdown-toggle arrow-none text-dark"

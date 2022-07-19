@@ -31,6 +31,7 @@ class UserController extends Controller
             'nama' => $request->nama ?? '',
             'email' => $request->email ?? '',
             'borrowing' => $request->borrowing ?? false,
+            'not_admin' => $request->not_admin ?? false,
         ];
         $users = $this->user->getAll($filter, $request->limit ?? 0, $request->sort ?? '');
 
@@ -52,7 +53,8 @@ class UserController extends Controller
             return response()->failed($request->validator->errors());
         }
 
-        $dataInput = $request->only(['email', 'nama', 'password', 'foto']);
+        $dataInput = $request->only(['email', 'nama', 'password', 'foto', 'akses']);
+        $dataInput['user_roles_id'] = $dataInput['akses']['id'];
         $dataUser = $this->user->create($dataInput);
 
         if (!$dataUser['status']) {
@@ -93,7 +95,8 @@ class UserController extends Controller
             return response()->failed($request->validator->errors());
         }
 
-        $dataInput = $request->only(['email', 'nama', 'password', 'id', 'foto']);
+        $dataInput = $request->only(['email', 'nama', 'password', 'id', 'foto', 'akses']);
+        $dataInput['user_roles_id'] = $dataInput['akses']['id'];
         $dataUser = $this->user->update($dataInput, $dataInput['id']);
 
         if (!$dataUser['status']) {

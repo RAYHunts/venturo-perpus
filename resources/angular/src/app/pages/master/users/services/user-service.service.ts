@@ -26,4 +26,8 @@ export class UserService {
     deleteUser(userId) {
         return this.landaService.DataDelete("/v1/users/" + userId);
     }
+
+    getProfile() {
+        return this.landaService.DataGet("/v1/auth/profile");
+    }
 }

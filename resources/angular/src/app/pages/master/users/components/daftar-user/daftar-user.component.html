@@ -12,6 +12,7 @@
                             href="javascript: void(0);"
                             [routerLink]="['/master/roles']"
                             class="btn btn-sm btn-outline-info mr-2"
+                            *ngIf="userLogin.akses.roles.view"
                         >
                             <i
                                 class="fa fa-cogs font-size-14 align-middle mr-1"
@@ -20,17 +21,9 @@
                         </a>
                         <button
                             type="button"
-                            class="btn btn-sm btn-outline-secondary mr-2"
-                        >
-                            <i
-                                class="fa fa-search font-size-14 align-middle mr-1"
-                            ></i>
-                            Pencarian
-                        </button>
-                        <button
-                            type="button"
                             class="btn btn-sm btn-primary mr-2"
                             (click)="createUser(formUser)"
+                            *ngIf="userLogin.akses.user.create"
                         >
                             <i
                                 class="fa fa-plus font-size-14 align-middle mr-1"
@@ -52,6 +45,7 @@
                                 <td>Nama</td>
                                 <td>Email</td>
                                 <td>Hak Akses</td>
+                                <td>Admin</td>
                                 <td width="90"></td>
                             </tr>
                         </thead>
@@ -65,7 +59,21 @@
                                 </td>
                                 <td class="vertical-middle">{{ val.nama }}</td>
                                 <td class="vertical-middle">{{ val.email }}</td>
-                                <td class="vertical-middle">{{ val.akses }}</td>
+                                <td class="vertical-middle">
+                                    {{ val.hak_akses }}
+                                </td>
+                                <td class="vertical-middle">
+                                    <span>
+                                        <i
+                                            class="fa fa-check-circle text-success"
+                                            *ngIf="val.is_admin"
+                                        ></i>
+                                        <i
+                                            class="fa fa-times-circle text-danger"
+                                            *ngIf="!val.is_admin"
+                                        ></i>
+                                    </span>
+                                </td>
                                 <td class="vertical-middle text-right">
                                     <a
                                         href="javascript: void(0);"
@@ -74,6 +82,7 @@
                                         placement="left"
                                         container="body"
                                         ngbTooltip="Ubah"
+                                        *ngIf="userLogin.akses.user.update"
                                     >
                                         <i class="fa fa-edit font-size-14"></i>
                                     </a>
@@ -84,6 +93,7 @@
                                         placement="left"
                                         container="body"
                                         ngbTooltip="Hapus"
+                                        *ngIf="userLogin.akses.user.delete"
                                     >
                                         <i class="fa fa-trash font-size-14"></i>
                                     </a>
@@ -112,7 +122,7 @@
     <div class="modal-body">
         <user-form
             [userId]="modelId"
-            (afterSave)="modal.close(); getUser()"
+            (afterSave)="modal.close(); reloadDataTable()"
         ></user-form>
     </div>
 </ng-template>

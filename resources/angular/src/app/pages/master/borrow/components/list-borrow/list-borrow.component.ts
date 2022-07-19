@@ -32,10 +32,9 @@ export class ListBorrowComponent implements OnInit {
     getUserLogin() {
         this.authService.getProfile().subscribe((user: any) => {
             this.userLogin = user;
-            if (this.userLogin.akses == "Super Admin") {
+            if (this.userLogin.is_admin) {
                 this.getBorrow();
-            }
-            if (this.userLogin.akses == "User") {
+            } else {
                 this.getBorrowbyUserID(this.userLogin.id);
             }
         });

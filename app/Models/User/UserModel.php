@@ -56,12 +56,7 @@ class UserModel extends Authenticatable implements JWTSubject, ModelInterface
         'user_roles_id' => 1,
     ];
 
-    protected $fillable = [
-        'nama',
-        'email',
-        'password',
-        'foto'
-    ];
+    protected $guarded = ['id'];
 
     /**
      * Get the identifier that will be stored in the subject claim of the JWT.
@@ -143,6 +138,14 @@ class UserModel extends Authenticatable implements JWTSubject, ModelInterface
         if ($filter['borrowing']) {
             $user->whereRelation('borrow', 'id', '>', 0);
         }
+
+        if ($filter['not_admin']) {
+            $user->whereRelation('role', 'is_admin', '!=', 1);
+        }
+
+        if (!empty($filter['tanggal'])) {
+            $user->whereRelation('borrow', 'borrow_date', '>=', $filter['tanggal'])->orWhereRelation('borrow', 'return_date', '<=', $filter['tanggal']);
+        }
         if (!empty($filter['nama'])) {
             $user->where('nama', 'LIKE', '%' . $filter['nama'] . '%');
         }
@@ -181,5 +184,13 @@ class UserModel extends Authenticatable implements JWTSubject, ModelInterface
     public function borrow()
     {
         return $this->hasMany(BorrowModel::class, 'user_id', 'id');
+    }
+
+    public function isAdmin()
+    {
+        if ($this->role->is_admin == 1) {
+            return true;
+        }
+        return false;
     }
 }

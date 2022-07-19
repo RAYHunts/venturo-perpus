@@ -20,6 +20,7 @@ class UserSeeder extends Seeder
             'id' => 1,
             'nama' => 'Super Admin',
             'akses' => '{"user":{"create":true,"update":true,"delete":true,"view":true},"roles":{"create":true,"update":true,"delete":true,"view":true},"books":{"create":true,"update":true,"delete":true,"view":true},"borrow":{"create":true,"update":true,"delete":true,"view":true},"customer":{"create":true,"update":true,"delete":true,"view":true},"item":{"create":true,"update":true,"delete":true,"view":true}}',
+            'is_admin' => 1,
         ]);
         DB::table('user_roles')->insert([
             'id' => 2,
@@ -37,5 +38,13 @@ class UserSeeder extends Seeder
             'updated_security' => date('Y-m-d H:i:s')
         ]);
         UserModel::factory(10)->create();
+
+        UserModel::create([
+            'user_roles_id' => 2,
+            'nama' => 'Muhammad Roihan',
+            'email' => 'rayhunts710@gmail.com',
+            'password' => Hash::make('123456'),
+            'updated_security' => date('Y-m-d H:i:s')
+        ]);
     }
 }

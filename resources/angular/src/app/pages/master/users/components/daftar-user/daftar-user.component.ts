@@ -2,8 +2,8 @@ import { Component, OnInit, ViewChild } from "@angular/core";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { DataTableDirective } from "angular-datatables";
 import { LandaService } from "src/app/core/services/landa.service";
+import { AuthService } from "src/app/pages/auth/services/auth.service";
 import Swal from "sweetalert2";
-
 import { UserService } from "../../services/user-service.service";
 
 @Component({
@@ -18,15 +18,20 @@ export class DaftarUserComponent implements OnInit {
     listUser: [];
     titleModal: string;
     modelId: number;
+    userLogin: any;
 
     constructor(
         private userService: UserService,
         private landaService: LandaService,
-        private modalService: NgbModal
+        private modalService: NgbModal,
+        private authService: AuthService
     ) {}
 
     ngOnInit(): void {
         this.getUser();
+        this.authService.getProfile().subscribe((res: any) => {
+            this.userLogin = res;
+        });
     }
 
     getUser() {
@@ -63,6 +68,12 @@ export class DaftarUserComponent implements OnInit {
         };
     }
 
+    reloadDataTable(): void {
+        this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+            dtInstance.draw();
+        });
+    }
+
     createUser(modal) {
         this.titleModal = "Tambah User";
         this.modelId = 0;
@@ -89,7 +100,7 @@ export class DaftarUserComponent implements OnInit {
                 this.userService.deleteUser(userId).subscribe(
                     (res: any) => {
                         this.landaService.alertSuccess("Berhasil", res.message);
-                        this.getUser();
+                        this.reloadDataTable();
                     },
                     (err) => {
                         console.log(err);

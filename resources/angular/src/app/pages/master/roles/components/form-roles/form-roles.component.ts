@@ -23,6 +23,7 @@ export class FormRolesComponent implements OnInit {
     formModel: {
         id: number;
         nama: string;
+        is_admin: boolean;
         akses: {
             user: {
                 create: boolean;
@@ -67,6 +68,7 @@ export class FormRolesComponent implements OnInit {
         this.formModel = {
             id: 0,
             nama: "",
+            is_admin: false,
             akses: {
                 user: {
                     create: false,
@@ -106,7 +108,7 @@ export class FormRolesComponent implements OnInit {
             (res: any) => {
                 this.formModel.id = res.data.id;
                 this.formModel.nama = res.data.nama;
-
+                this.formModel.is_admin = res.data.is_admin;
                 // Detail hak akses
                 const akses = res.data.akses;
                 for (const key in akses) {

@@ -21,7 +21,9 @@ class UserResource extends JsonResource
             'email' => $this->email,
             'fotoUrl' => $this->fotoUrl(),
             'updated_security' => $this->updated_security,
-            'akses' => $this->role->nama,
+            'akses' => json_decode($this->role->akses),
+            'hak_akses' => $this->role->nama,
+            'is_admin' => $this->isAdmin(),
             'borrows' => BorrowResource::collection($this->borrow),
         ];
     }

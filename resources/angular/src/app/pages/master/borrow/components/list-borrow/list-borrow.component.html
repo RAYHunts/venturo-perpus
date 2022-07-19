@@ -12,7 +12,7 @@
                             type="button"
                             class="btn btn-sm btn-primary mr-2"
                             (click)="createBorrow()"
-                            *ngIf="userLogin.akses == 'Super Admin'"
+                            *ngIf="userLogin.akses.borrow.create"
                         >
                             <i
                                 class="fa fa-plus font-size-14 align-middle mr-1"
@@ -101,21 +101,6 @@
                                         }}
                                     </td>
                                     <td>
-                                        <!-- <a
-                                            href="javascript: void(0);"
-                                            class="align-middle mr-2 btn btn-primary"
-                                            placement="left"
-                                            container="body"
-                                            ngbTooltip="Edit"
-                                            (click)="updateBorrow(list)"
-                                            *ngIf="
-                                                userLogin.akses == 'Super Admin'
-                                            "
-                                        >
-                                            <i
-                                                class="fa fa-edit font-size-14"
-                                            ></i>
-                                        </a> -->
                                         <a
                                             href="javascript: void(0);"
                                             class="align-middle mr-2 btn btn-primary"

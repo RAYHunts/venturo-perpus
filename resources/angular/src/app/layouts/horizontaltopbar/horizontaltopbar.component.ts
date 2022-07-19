@@ -35,15 +35,15 @@ export class HorizontaltopbarComponent implements OnInit, AfterViewInit {
     }
 
     ngOnInit(): void {
+        this.authService.getProfile().subscribe((user: any) => {
+            this.userLogin = user;
+        });
         this.element = document.documentElement;
 
         this.configData = {
             suppressScrollX: true,
             wheelSpeed: 0.3,
         };
-        this.authService.getProfile().subscribe((user: any) => {
-            this.userLogin = user;
-        });
     }
 
     logout() {

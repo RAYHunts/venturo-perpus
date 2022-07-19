@@ -15,10 +15,6 @@ import { DaftarUserComponent } from "./users/components/daftar-user/daftar-user.
 import { FormUserComponent } from "./users/components/form-user/form-user.component";
 import { DaftarRolesComponent } from "./roles/components/daftar-roles/daftar-roles.component";
 import { FormRolesComponent } from "./roles/components/form-roles/form-roles.component";
-import { DaftarCustomerComponent } from "./customers/components/daftar-customer/daftar-customer.component";
-import { FormCustomerComponent } from "./customers/components/form-customer/form-customer.component";
-import { FormItemComponent } from "./items/components/form-item/form-item.component";
-import { DaftarItemComponent } from "./items/components/daftar-item/daftar-item.component";
 import { ListBooksComponent } from "./books/components/list-books/list-books.component";
 import { FormBookComponent } from "./books/components/form-book/form-book.component";
 import { ListBorrowComponent } from "./borrow/components/list-borrow/list-borrow.component";
@@ -33,10 +29,6 @@ import { ProfileUserComponent } from "./users/components/profile-user/profile-us
         FormUserComponent,
         DaftarRolesComponent,
         FormRolesComponent,
-        DaftarCustomerComponent,
-        FormCustomerComponent,
-        FormItemComponent,
-        DaftarItemComponent,
         ListBooksComponent,
         FormBookComponent,
         ListBorrowComponent,

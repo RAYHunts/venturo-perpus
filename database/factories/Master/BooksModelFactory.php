@@ -14,9 +14,8 @@ class BooksModelFactory extends Factory
     public function definition()
     {
         return [
-            'title' => $this->faker->city(),
+            'title' => $this->faker->sentence,
             'description' => $this->faker->text,
-            'photo' => $this->faker->imageUrl,
             'qty' => $this->faker->numberBetween(1, 100),
             'publisher' => $this->faker->company,
             'publish_year' => $this->faker->year,
